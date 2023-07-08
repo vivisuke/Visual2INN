@@ -1,8 +1,41 @@
-[gd_scene format=3 uid="uid://dn10wrshov6hp"]
+[gd_scene load_steps=4 format=3 uid="uid://dn10wrshov6hp"]
+
+[ext_resource type="Script" path="res://scripts/top_scene.gd" id="1_hfqae"]
+[ext_resource type="Script" path="res://scripts/SingleNueronButton.gd" id="1_iorm7"]
+
+[sub_resource type="Theme" id="Theme_a44im"]
 
 [node name="TopScene" type="Node2D"]
+script = ExtResource("1_hfqae")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 500.0
 offset_bottom = 900.0
 color = Color(0.941176, 0.941176, 0.941176, 1)
+
+[node name="Title" type="Label" parent="."]
+offset_top = 10.0
+offset_right = 500.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Visual2INN"
+horizontal_alignment = 1
+
+[node name="Version" type="Label" parent="."]
+offset_top = 50.0
+offset_right = 500.0
+offset_bottom = 76.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "ver 0.001"
+horizontal_alignment = 1
+
+[node name="SingleNueronButton" type="TextureButton" parent="."]
+offset_left = 20.0
+offset_top = 80.0
+offset_right = 480.0
+offset_bottom = 540.0
+theme = SubResource("Theme_a44im")
+script = ExtResource("1_iorm7")
+
+[connection signal="pressed" from="SingleNueronButton" to="." method="_on_single_nueron_button_pressed"]
