@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://78xiyojci0p3"]
+[gd_scene load_steps=5 format=3 uid="uid://78xiyojci0p3"]
 
 [ext_resource type="Script" path="res://scripts/single_neuron_scene.gd" id="1_8hjy8"]
 [ext_resource type="Texture2D" uid="uid://bukgrrvcqvv37" path="res://images/leftward_black.png" id="1_csbep"]
 [ext_resource type="Texture2D" uid="uid://b5bjn1p1s6rml" path="res://images/leftward_gray.png" id="2_dw4tx"]
+[ext_resource type="Script" path="res://scripts/GraphRect.gd" id="4_o5gbt"]
 
 [node name="SingleNeuronScene" type="Node2D"]
 script = ExtResource("1_8hjy8")
@@ -18,5 +19,12 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture_normal = ExtResource("1_csbep")
 texture_pressed = ExtResource("2_dw4tx")
+
+[node name="GraphRect" type="ColorRect" parent="."]
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 480.0
+offset_bottom = 510.0
+script = ExtResource("4_o5gbt")
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
