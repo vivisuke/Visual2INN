@@ -10,8 +10,8 @@ var X_OUTPUT = 280
 var Y_1 = 75+10
 var Y_X1 = 150+10
 var Y_X2 = 225+10
-const X_WEIGHT = 120
-const X_AF = 225
+var X_WEIGHT = 120
+var X_AF = 225
 
 var self_rect
 var r_width
@@ -19,6 +19,19 @@ var r_height
 var initialized = false
 var selected = false
 
+func add_label(pos: Vector2, txt: String):
+	var dx = 4 if txt.length() == 1 else 8
+	var lbl = Label.new()
+	lbl.add_theme_color_override("font_color", Color.BLACK)
+	lbl.text = txt
+	lbl.position = pos - Vector2(dx, 12)
+	add_child(lbl)
+func add_label_raw(pos: Vector2, txt: String):
+	var lbl = Label.new()
+	lbl.add_theme_color_override("font_color", Color.BLACK)
+	lbl.text = txt
+	lbl.position = pos
+	add_child(lbl)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self_rect = self.get_rect()
@@ -30,11 +43,22 @@ func _ready():
 	X_INPUT = LR_SPC + NODE_RADIUS
 	X_ACT = r_width / 2.0
 	X_OUTPUT = r_width - (LR_SPC + NODE_RADIUS)
+	X_WEIGHT = (X_INPUT + X_ACT) / 2.0
+	X_AF = (X_ACT + X_OUTPUT) / 2.0
 	#
 	Y_1 = TB_SPC + NODE_RADIUS
 	Y_X1 = r_height / 2.0
 	Y_X2 = r_height - (TB_SPC + NODE_RADIUS)
-
+	#
+	add_label(Vector2(X_WEIGHT, Y_X1-10-45), "*b")
+	add_label(Vector2(X_WEIGHT, Y_X1-10), "*w1")
+	add_label(Vector2(X_WEIGHT, Y_X1-10+45), "*w2")
+	add_label(Vector2(X_AF, Y_X1-10), "h()")
+	#
+	add_label_raw(Vector2(X_INPUT, Y_LINE-24), "Affine")
+	add_label_raw(Vector2(X_ACT+15, Y_LINE-24), "Actv-Func")
+	#
+	#queue_redraw()
 	pass # Replace with function body.
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -58,8 +82,8 @@ func _input(event):
 func draw_circle_outline(pos: Vector2, radius, col, txt: String):
 	draw_circle(pos, radius, col)
 	draw_arc(pos, radius, 0.0, 2*PI, 128, Color.BLACK, 0.75, true)
-	##if !initialized:
-	##	add_label(pos, txt)
+	if !initialized:
+		add_label(pos, txt)
 func _draw():
 	# 背景＋影 描画
 	var style_box = StyleBoxFlat.new()      # 影、ボーダなどを描画するための矩形スタイルオブジェクト
@@ -79,4 +103,6 @@ func _draw():
 	draw_circle_outline(Vector2(X_INPUT, Y_X2), NODE_RADIUS, Color.WHITE, "x2")
 	draw_circle_outline(Vector2(X_ACT, Y_X1), NODE_RADIUS, Color.WHITE, "a")
 	draw_circle_outline(Vector2(X_OUTPUT, Y_X1), NODE_RADIUS, Color.WHITE, "y")
+	#
+	initialized = true
 	pass
