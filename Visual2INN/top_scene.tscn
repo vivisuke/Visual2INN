@@ -35,8 +35,17 @@ horizontal_alignment = 1
 offset_left = 20.0
 offset_top = 80.0
 offset_right = 480.0
-offset_bottom = 540.0
+offset_bottom = 460.0
+theme = SubResource("Theme_a44im")
+script = ExtResource("1_iorm7")
+
+[node name="SingleNueronButton2" type="TextureButton" parent="."]
+offset_left = 20.0
+offset_top = 480.0
+offset_right = 480.0
+offset_bottom = 860.0
 theme = SubResource("Theme_a44im")
 script = ExtResource("1_iorm7")
 
 [connection signal="pressed" from="SingleNueronButton" to="." method="_on_single_nueron_button_pressed"]
+[connection signal="pressed" from="SingleNueronButton2" to="." method="_on_single_nueron_button_pressed"]
