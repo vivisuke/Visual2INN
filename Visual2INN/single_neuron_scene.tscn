@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://78xiyojci0p3"]
+
+[node name="SingleNeuronScene" type="Node2D"]
+
+[node name="BG" type="ColorRect" parent="."]
+offset_top = -1.0
+offset_right = 500.0
+offset_bottom = 899.0
+color = Color(0.941176, 0.941176, 0.941176, 1)
