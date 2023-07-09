@@ -40,12 +40,19 @@ func _ready():
 func _process(delta):
 	pass
 
+func point_in_rect(ctrl: Control, pnt: Vector2) -> bool:
+	var pos = ctrl.position
+	var sz = ctrl.size
+	return (pnt.x >= pos.x && pnt.x < pos.x + sz.x &&
+			pnt.y >= pos.y && pnt.y < pos.y + sz.y)
 func _input(event):
 	if event is InputEventMouseButton:
-		selected = !event.is_released()
-		print(event.is_released())
-		print(get_local_mouse_position())
-		queue_redraw()
+		var mpos = get_global_mouse_position()
+		if point_in_rect(self, mpos):
+			selected = !event.is_released()
+			print(event.is_released())
+			print(get_local_mouse_position())
+			queue_redraw()
 	pass
 
 func draw_circle_outline(pos: Vector2, radius, col, txt: String):
