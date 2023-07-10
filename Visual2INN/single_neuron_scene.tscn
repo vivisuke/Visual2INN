@@ -31,7 +31,8 @@ texture_normal = ExtResource("1_csbep")
 texture_pressed = ExtResource("2_dw4tx")
 
 [node name="TitleLabel" type="Label" parent="TitleBar"]
-offset_right = 500.0
+offset_left = 5.0
+offset_right = 495.0
 offset_bottom = 48.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
@@ -49,32 +50,32 @@ text = "Iteration: 0"
 
 [node name="GraphRect" type="ColorRect" parent="."]
 offset_left = 20.0
-offset_top = 80.0
+offset_top = 120.0
 offset_right = 480.0
-offset_bottom = 540.0
+offset_bottom = 580.0
 script = ExtResource("4_o5gbt")
 
 [node name="WeightLabel" type="Label" parent="."]
 offset_left = 20.0
-offset_top = 550.0
+offset_top = 590.0
 offset_right = 175.0
-offset_bottom = 576.0
+offset_bottom = 616.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "[b, w1, w2] = [0, 0, 0]"
 
 [node name="GradLabel" type="Label" parent="."]
 offset_left = 20.0
-offset_top = 576.0
+offset_top = 620.0
 offset_right = 208.0
-offset_bottom = 602.0
+offset_bottom = 646.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "∂L/∂[b, w1, w2] = [0, 0, 0]"
 
 [node name="LossLabel" type="Label" parent="."]
 offset_left = 318.0
-offset_top = 550.0
+offset_top = 590.0
 offset_right = 480.0
-offset_bottom = 576.0
+offset_bottom = 616.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Loss: N/A"
 horizontal_alignment = 2
@@ -111,6 +112,35 @@ offset_bottom = 74.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Reset"
 
+[node name="OptionButton" type="OptionButton" parent="."]
+offset_left = 200.0
+offset_top = 80.0
+offset_right = 278.0
+offset_bottom = 111.0
+item_count = 5
+selected = 0
+popup/item_0/text = "AND"
+popup/item_0/id = 0
+popup/item_1/text = "OR"
+popup/item_1/id = 1
+popup/item_2/text = "NAND"
+popup/item_2/id = 2
+popup/item_3/text = "x1 > X2"
+popup/item_3/id = 3
+popup/item_4/text = "XOR"
+popup/item_4/id = 4
+
+[node name="Label" type="Label" parent="OptionButton"]
+layout_mode = 0
+offset_left = -132.0
+offset_right = -6.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "teacher func op:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="TrainButton" to="." method="_on_train_button_pressed"]
 [connection signal="pressed" from="RestButton" to="." method="_on_rest_button_pressed"]
+[connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]

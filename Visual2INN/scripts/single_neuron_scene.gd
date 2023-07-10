@@ -138,3 +138,10 @@ func _on_rest_button_pressed():
 	neuron.init_weight(norm)
 	update_view()
 	pass # Replace with function body.
+
+
+func _on_option_button_item_selected(index):
+	ope = index
+	$GraphRect.ope = ope
+	$GraphRect.queue_redraw()
+	pass # Replace with function body.
