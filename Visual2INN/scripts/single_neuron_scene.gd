@@ -13,10 +13,13 @@ class Neuron:
 		actv_func = af
 		# 重みベクター初期化
 		vec_weight.resize(n_input+1)
+		init_weight(deviation)		# 指定標準偏差で乱数生成
+	func init_weight(deviation:float):
 		if false:
-			init_weight(deviation)		# 指定標準偏差で乱数生成
+			for i in range(n_input+1):
+				vec_weight[i] = randfn(0.0, deviation)
 		else:
-			if n_in == 2:
+			if n_input == 2:
 				vec_weight[0] = sin(randf_range(0.0, 2*PI))
 				var th = randf_range(0.0, 2*PI)
 				vec_weight[1] = cos(th)
@@ -30,9 +33,6 @@ class Neuron:
 				var sq = sqrt(sum2)
 				for i in range(1, n_input+1):
 					vec_weight[i] /= sq
-	func init_weight(deviation:float):
-		for i in range(n_input+1):
-			vec_weight[i] = randfn(0.0, deviation)
 	func sigmoid(x): return 1.0/(1.0 + exp(-x))
 	func ReLU(x): return x if x > 0.0 else 0.0
 	func forward(inp: Array):
@@ -84,6 +84,7 @@ func _ready():
 	print(neuron.vec_weight)
 	update_view()
 func update_view():
+	$ItrLabel.text = "Iteration: %d" % n_iteration
 	$WeightLabel.text = "[b, w1, w2] = [%.3f, %.3f, %.3f]" % neuron.vec_weight
 	$GraphRect.vv_weight = [neuron.vec_weight]
 	$GraphRect.queue_redraw()
@@ -115,12 +116,15 @@ func forward_and_backward():
 	$GradLabel.text = "∂L/[b, w1, w2] = [%.3f, %.3f, %.3f]" % grad
 	pass
 func do_train():
+	n_iteration += 1
 	for i in range(neuron.vec_weight.size()):
 		neuron.vec_weight[i] -= grad[i] * ALPHA
 	update_view()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if $TrainButton.button_pressed:
+		do_train()
 	pass
 
 
@@ -131,4 +135,8 @@ func _on_back_button_pressed():
 
 func _on_train_button_pressed():	# 1ステップ学習
 	do_train()
+	pass # Replace with function body.
+
+
+func _on_rest_button_pressed():
 	pass # Replace with function body.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://78xiyojci0p3"]
+[gd_scene load_steps=9 format=3 uid="uid://78xiyojci0p3"]
 
 [ext_resource type="Script" path="res://scripts/single_neuron_scene.gd" id="1_8hjy8"]
 [ext_resource type="Texture2D" uid="uid://bukgrrvcqvv37" path="res://images/leftward_black.png" id="1_csbep"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://scripts/GraphRect.gd" id="4_o5gbt"]
 [ext_resource type="Texture2D" uid="uid://bm2c4jipcgstk" path="res://images/skip_next_black.png" id="5_jcl0j"]
 [ext_resource type="Texture2D" uid="uid://bhagxlxl351bj" path="res://images/skip_next_gray.png" id="6_valas"]
+[ext_resource type="Texture2D" uid="uid://cxdyva45dvh5k" path="res://images/refresh_black.png" id="7_34sdn"]
+[ext_resource type="Texture2D" uid="uid://bdweaw2al2omp" path="res://images/refresh_gray.png" id="8_i3nup"]
 
 [node name="SingleNeuronScene" type="Node2D"]
 script = ExtResource("1_8hjy8")
@@ -87,5 +89,22 @@ offset_bottom = 74.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Train 1"
 
+[node name="RestButton" type="TextureButton" parent="."]
+offset_left = 430.0
+offset_top = 759.0
+offset_right = 478.0
+offset_bottom = 807.0
+texture_normal = ExtResource("7_34sdn")
+texture_pressed = ExtResource("8_i3nup")
+
+[node name="Label" type="Label" parent="RestButton"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 54.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Reset"
+
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="TrainButton" to="." method="_on_train_button_pressed"]
+[connection signal="pressed" from="RestButton" to="." method="_on_rest_button_pressed"]
