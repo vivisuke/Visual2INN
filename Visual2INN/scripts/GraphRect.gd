@@ -12,6 +12,8 @@ enum {
 	OP_AND = 0, OP_OR, OP_NAND,
 	OP_GT,		# x1 > x2
 	OP_XOR,
+	#
+	AF_SIGMOID = 0, AF_TANH, AF_RELU,		# 活性化関数種別
 }
 var SZ = self.size
 var SCREEN_WD = SZ.x
@@ -39,6 +41,7 @@ var dispersion = DSP_001					# 重み分散、0.01 | Xavier | He
 var distribution = UNIFORM_DISTRIBUTION		# 分布
 var maxv = 2.0								# グラフ範囲
 var ope = OP_AND
+var actv_func = AF_SIGMOID
 var n_output_node = 1						# 出力ノード数
 var uniform_range = 0.02					# 一様分布範囲
 #var param_lst = []							

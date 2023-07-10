@@ -2,7 +2,7 @@ extends Node2D
 
 
 enum {
-	AF_TANH = 0, AF_SIGMOID, AF_RELU,		# 活性化関数種別
+	AF_SIGMOID = 0, AF_TANH, AF_RELU,		# 活性化関数種別
 	WI_1 = 0, WI_001, WI_XAVIER, WI_HE,		# 重み標準偏差・初期化方法
 }
 # ニューロンクラス、N入力１出力
@@ -74,6 +74,7 @@ enum {
 const boolean_pos = [[0, 0], [1, 0], [0, 1], [1, 1]]
 var n_iteration = 0			# 学習回数
 var ope = OP_AND
+var actv_func = AF_SIGMOID
 var ALPHA = 0.1				# 学習率
 var norm = 0.1				# 重み初期化時標準偏差
 var neuron
@@ -140,8 +141,16 @@ func _on_rest_button_pressed():
 	pass # Replace with function body.
 
 
-func _on_option_button_item_selected(index):
+func _on_ope_button_item_selected(index):
 	ope = index
 	$GraphRect.ope = ope
+	$GraphRect.queue_redraw()
+	pass # Replace with function body.
+
+
+func _on_actv_func_button_item_selected(index):
+	actv_func = index
+	neuron.actv_func = actv_func
+	$GraphRect.actv_func = actv_func
 	$GraphRect.queue_redraw()
 	pass # Replace with function body.

@@ -112,10 +112,10 @@ offset_bottom = 74.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Reset"
 
-[node name="OptionButton" type="OptionButton" parent="."]
-offset_left = 200.0
+[node name="OpeButton" type="OptionButton" parent="."]
+offset_left = 160.0
 offset_top = 80.0
-offset_right = 278.0
+offset_right = 258.0
 offset_bottom = 111.0
 item_count = 5
 selected = 0
@@ -130,7 +130,7 @@ popup/item_3/id = 3
 popup/item_4/text = "XOR"
 popup/item_4/id = 4
 
-[node name="Label" type="Label" parent="OptionButton"]
+[node name="Label" type="Label" parent="OpeButton"]
 layout_mode = 0
 offset_left = -132.0
 offset_right = -6.0
@@ -140,7 +140,32 @@ text = "teacher func op:"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="ActvFuncButton" type="OptionButton" parent="."]
+offset_left = 370.0
+offset_top = 80.0
+offset_right = 468.0
+offset_bottom = 111.0
+item_count = 3
+selected = 0
+popup/item_0/text = "Sigmoid"
+popup/item_0/id = 0
+popup/item_1/text = "Tanh"
+popup/item_1/id = 1
+popup/item_2/text = "NAND"
+popup/item_2/id = 2
+
+[node name="Label" type="Label" parent="ActvFuncButton"]
+layout_mode = 0
+offset_left = -132.0
+offset_right = -6.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Actv-Func:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="TrainButton" to="." method="_on_train_button_pressed"]
 [connection signal="pressed" from="RestButton" to="." method="_on_rest_button_pressed"]
-[connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="OpeButton" to="." method="_on_ope_button_item_selected"]
+[connection signal="item_selected" from="ActvFuncButton" to="." method="_on_actv_func_button_item_selected"]
