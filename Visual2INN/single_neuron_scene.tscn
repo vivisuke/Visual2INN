@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://78xiyojci0p3"]
+[gd_scene load_steps=10 format=3 uid="uid://78xiyojci0p3"]
 
 [ext_resource type="Script" path="res://scripts/single_neuron_scene.gd" id="1_8hjy8"]
 [ext_resource type="Texture2D" uid="uid://bukgrrvcqvv37" path="res://images/leftward_black.png" id="1_csbep"]
 [ext_resource type="Texture2D" uid="uid://b5bjn1p1s6rml" path="res://images/leftward_gray.png" id="2_dw4tx"]
+[ext_resource type="Script" path="res://scripts/TitleBar.gd" id="2_is6st"]
 [ext_resource type="Script" path="res://scripts/GraphRect.gd" id="4_o5gbt"]
 [ext_resource type="Texture2D" uid="uid://bm2c4jipcgstk" path="res://images/skip_next_black.png" id="5_jcl0j"]
 [ext_resource type="Texture2D" uid="uid://bhagxlxl351bj" path="res://images/skip_next_gray.png" id="6_valas"]
@@ -21,6 +22,7 @@ color = Color(0.941176, 0.941176, 0.941176, 1)
 [node name="TitleBar" type="ColorRect" parent="."]
 offset_right = 500.0
 offset_bottom = 48.0
+script = ExtResource("2_is6st")
 
 [node name="BackButton" type="TextureButton" parent="TitleBar"]
 offset_right = 48.0
