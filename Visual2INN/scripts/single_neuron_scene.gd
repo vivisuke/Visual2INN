@@ -72,13 +72,18 @@ enum {
 	LU_MINI_BATCH = 0, LU_ONLINE, LU_RANDOM_8,
 }
 const boolean_pos = [[0, 0], [1, 0], [0, 1], [1, 1]]
+var n_iteration = 0			# 学習回数
 var ope = OP_AND
+var ALPHA = 0.1				# 学習率
 var neuron
+var grad
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	neuron = Neuron.new(2, AF_SIGMOID, 0.1)
 	print(neuron.vec_weight)
+	update_view()
+func update_view():
 	$WeightLabel.text = "[b, w1, w2] = [%.3f, %.3f, %.3f]" % neuron.vec_weight
 	$GraphRect.vv_weight = [neuron.vec_weight]
 	$GraphRect.queue_redraw()
@@ -92,7 +97,7 @@ func teacher_value(inp:Array):
 	elif ope == OP_XOR: return 1.0 if inp[0] != inp[1] else 0.0					# XOR
 	return 0.0
 func forward_and_backward():
-	var grad = [0.0, 0.0, 0.0]
+	grad = [0.0, 0.0, 0.0]
 	var sumLoss = 0.0
 	var n_data = 0		# ミニバッチデータ数カウンタ
 	for i in range(boolean_pos.size()):
@@ -109,6 +114,10 @@ func forward_and_backward():
 	$LossLabel.text = "Loss = %.3f" % loss
 	$GradLabel.text = "∂L/[b, w1, w2] = [%.3f, %.3f, %.3f]" % grad
 	pass
+func do_train():
+	for i in range(neuron.vec_weight.size()):
+		neuron.vec_weight[i] -= grad[i] * ALPHA
+	update_view()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -117,4 +126,9 @@ func _process(delta):
 
 func _on_back_button_pressed():
 	get_tree().change_scene_to_file("res://top_scene.tscn")
+	pass # Replace with function body.
+
+
+func _on_train_button_pressed():	# 1ステップ学習
+	do_train()
 	pass # Replace with function body.
