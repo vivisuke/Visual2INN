@@ -68,6 +68,7 @@ var neuron
 func _ready():
 	neuron = Neuron.new(2, AF_SIGMOID, 0.1)
 	print(neuron.vec_weight)
+	$WeightLabel.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % neuron.vec_weight
 	$GraphRect.vv_weight = [neuron.vec_weight]
 	$GraphRect.queue_redraw()
 	pass # Replace with function body.

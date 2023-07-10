@@ -27,7 +27,7 @@ offset_right = 480.0
 offset_bottom = 540.0
 script = ExtResource("4_o5gbt")
 
-[node name="Label" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="."]
 offset_right = 500.0
 offset_bottom = 48.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -35,5 +35,30 @@ theme_override_font_sizes/font_size = 32
 text = "単一ニューロン"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="WeightLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 550.0
+offset_right = 175.0
+offset_bottom = 576.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2] = [0, 0, 0]"
+
+[node name="GradLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 576.0
+offset_right = 208.0
+offset_bottom = 602.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2] = [0, 0, 0]"
+
+[node name="LossLabel" type="Label" parent="."]
+offset_left = 318.0
+offset_top = 550.0
+offset_right = 480.0
+offset_bottom = 576.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Loss: N/A"
+horizontal_alignment = 2
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
