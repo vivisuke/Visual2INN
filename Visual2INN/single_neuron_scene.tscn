@@ -18,13 +18,17 @@ offset_right = 500.0
 offset_bottom = 899.0
 color = Color(0.941176, 0.941176, 0.941176, 1)
 
-[node name="BackButton" type="TextureButton" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="TitleBar" type="ColorRect" parent="."]
+offset_right = 500.0
+offset_bottom = 48.0
+
+[node name="BackButton" type="TextureButton" parent="TitleBar"]
+offset_right = 48.0
+offset_bottom = 48.0
 texture_normal = ExtResource("1_csbep")
 texture_pressed = ExtResource("2_dw4tx")
 
-[node name="TitleLabel" type="Label" parent="."]
+[node name="TitleLabel" type="Label" parent="TitleBar"]
 offset_right = 500.0
 offset_bottom = 48.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -105,6 +109,6 @@ offset_bottom = 74.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Reset"
 
-[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="TrainButton" to="." method="_on_train_button_pressed"]
 [connection signal="pressed" from="RestButton" to="." method="_on_rest_button_pressed"]
