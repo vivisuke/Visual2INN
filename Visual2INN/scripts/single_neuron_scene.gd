@@ -52,9 +52,10 @@ class Neuron:
 			if y <= 0: dyda = 0.0
 			else: dyda = 1.0
 		var dydag = dyda * grad
+		upgrad.push_back(dydag)		# for b
 		#print("∂L/∂y = ", grad)
 		#print("∂y/∂a = ", dyda)
-		for i in range(n_input):
+		for i in range(n_input):	# for w1, w2, ...
 			upgrad.push_back(dydag * inp[i])
 	var n_input		# 入力データ数
 	var actv_func	# 活性化関数種別
@@ -91,16 +92,22 @@ func teacher_value(inp:Array):
 	elif ope == OP_XOR: return 1.0 if inp[0] != inp[1] else 0.0					# XOR
 	return 0.0
 func forward_and_backward():
+	var grad = [0.0, 0.0, 0.0]
 	var sumLoss = 0.0
 	var n_data = 0		# ミニバッチデータ数カウンタ
 	for i in range(boolean_pos.size()):
+		n_data += 1
 		var t = teacher_value(boolean_pos[i])	# 教師値
 		neuron.forward(boolean_pos[i])
 		var d = neuron.y - t
 		sumLoss += d * d / 2.0
-		n_data += 1
+		#
+		neuron.backward(boolean_pos[i], d)
+		for k in range(grad.size()):
+			grad[k] += neuron.upgrad[k]
 	var loss = sumLoss / n_data
 	$LossLabel.text = "Loss = %.3f" % loss
+	$GradLabel.text = "∂L/[b, w1, w2] = [%.3f, %.3f, %.3f]" % grad
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
