@@ -75,12 +75,13 @@ const boolean_pos = [[0, 0], [1, 0], [0, 1], [1, 1]]
 var n_iteration = 0			# 学習回数
 var ope = OP_AND
 var ALPHA = 0.1				# 学習率
+var norm = 0.1				# 重み初期化時標準偏差
 var neuron
 var grad
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	neuron = Neuron.new(2, AF_SIGMOID, 0.1)
+	neuron = Neuron.new(2, AF_SIGMOID, norm)
 	print(neuron.vec_weight)
 	update_view()
 func update_view():
@@ -126,17 +127,14 @@ func _process(delta):
 	if $TrainButton.button_pressed:
 		do_train()
 	pass
-
-
 func _on_back_button_pressed():
 	get_tree().change_scene_to_file("res://top_scene.tscn")
 	pass # Replace with function body.
-
-
 func _on_train_button_pressed():	# 1ステップ学習
-	do_train()
+	#do_train()
 	pass # Replace with function body.
-
-
 func _on_rest_button_pressed():
+	n_iteration = 0
+	neuron.init_weight(norm)
+	update_view()
 	pass # Replace with function body.
