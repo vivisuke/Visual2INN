@@ -103,6 +103,9 @@ func _draw():
 	draw_circle_outline(Vector2(X_INPUT, Y_X2), NODE_RADIUS, Color.WHITE, "x2")
 	draw_circle_outline(Vector2(X_ACT, Y_X1), NODE_RADIUS, Color.WHITE, "a")
 	draw_circle_outline(Vector2(X_OUTPUT, Y_X1), NODE_RADIUS, Color.WHITE, "y")
+	# 上部線
+	draw_line(Vector2(X_INPUT-NODE_RADIUS+5, Y_LINE), Vector2(X_ACT-5, Y_LINE), Color.BLACK)
+	draw_line(Vector2(X_ACT+5, Y_LINE), Vector2(X_OUTPUT+NODE_RADIUS-5, Y_LINE), Color.BLACK)
 	#
 	initialized = true
 	pass
