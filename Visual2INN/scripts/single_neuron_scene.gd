@@ -112,7 +112,10 @@ func forward_and_backward():
 		if actv_func != AF_SIGMOID && t == 0.0: t = -1.0
 		var inp = boolean_pos[i] if actv_func == AF_SIGMOID else boolean_pos_tanh[i]
 		neuron.forward(inp)
-		var d = neuron.y - t
+		var y = neuron.y
+		if actv_func == AF_RELU:
+			y = 1.0 if y > 0.0 else -1.0
+		var d = y - t
 		sumLoss += d * d / 2.0
 		#
 		neuron.backward(inp, d)
@@ -166,4 +169,6 @@ func _on_actv_func_button_item_selected(index):
 	neuron.actv_func = actv_func
 	$GraphRect.actv_func = actv_func
 	$GraphRect.queue_redraw()
+	forward_and_backward()
+	update_view()
 	pass # Replace with function body.
