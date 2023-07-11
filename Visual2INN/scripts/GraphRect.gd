@@ -130,6 +130,9 @@ func plot_boolean_sub(pos:Vector2):
 	elif ope == OP_XOR: b = 1.0 if pos.x != pos.y else 0.0					# XOR
 	#var col = Color.BLACK if b else Color.DARK_GRAY
 	#draw_circle(posToScreenPos(pos), 4.0, col)
+	if actv_func != AF_SIGMOID:
+		if pos.x == 0: pos.x = -1
+		if pos.y == 0: pos.y = -1
 	dot_plot(pos, b)
 func plot_boolean():
 	plot_boolean_sub(Vector2(0, 0))

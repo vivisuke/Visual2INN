@@ -1,14 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://78xiyojci0p3"]
+[gd_scene load_steps=12 format=3 uid="uid://78xiyojci0p3"]
 
 [ext_resource type="Script" path="res://scripts/single_neuron_scene.gd" id="1_8hjy8"]
 [ext_resource type="Texture2D" uid="uid://bukgrrvcqvv37" path="res://images/leftward_black.png" id="1_csbep"]
 [ext_resource type="Texture2D" uid="uid://b5bjn1p1s6rml" path="res://images/leftward_gray.png" id="2_dw4tx"]
 [ext_resource type="Script" path="res://scripts/TitleBar.gd" id="2_is6st"]
 [ext_resource type="Script" path="res://scripts/GraphRect.gd" id="4_o5gbt"]
-[ext_resource type="Texture2D" uid="uid://bm2c4jipcgstk" path="res://images/skip_next_black.png" id="5_jcl0j"]
-[ext_resource type="Texture2D" uid="uid://bhagxlxl351bj" path="res://images/skip_next_gray.png" id="6_valas"]
+[ext_resource type="Texture2D" uid="uid://kmt3c2kn8v5t" path="res://images/play_arrow_black.png" id="6_to3nj"]
 [ext_resource type="Texture2D" uid="uid://cxdyva45dvh5k" path="res://images/refresh_black.png" id="7_34sdn"]
+[ext_resource type="Texture2D" uid="uid://bwu5cabap8j01" path="res://images/play_arrow_gray.png" id="7_56glq"]
 [ext_resource type="Texture2D" uid="uid://bdweaw2al2omp" path="res://images/refresh_gray.png" id="8_i3nup"]
+[ext_resource type="Texture2D" uid="uid://c0jn1uo51xqp7" path="res://images/first_page_black.png" id="8_s1b3i"]
+[ext_resource type="Texture2D" uid="uid://dypwiooquumj1" path="res://images/first_page_gray.png" id="9_2itvw"]
 
 [node name="SingleNeuronScene" type="Node2D"]
 script = ExtResource("1_8hjy8")
@@ -25,12 +27,14 @@ offset_bottom = 48.0
 script = ExtResource("2_is6st")
 
 [node name="BackButton" type="TextureButton" parent="TitleBar"]
+layout_mode = 0
 offset_right = 48.0
 offset_bottom = 48.0
 texture_normal = ExtResource("1_csbep")
 texture_pressed = ExtResource("2_dw4tx")
 
 [node name="TitleLabel" type="Label" parent="TitleBar"]
+layout_mode = 0
 offset_left = 5.0
 offset_right = 495.0
 offset_bottom = 48.0
@@ -81,12 +85,12 @@ text = "Loss: N/A"
 horizontal_alignment = 2
 
 [node name="TrainButton" type="TextureButton" parent="."]
-offset_left = 20.0
+offset_left = 430.0
 offset_top = 759.0
-offset_right = 68.0
+offset_right = 478.0
 offset_bottom = 807.0
-texture_normal = ExtResource("5_jcl0j")
-texture_pressed = ExtResource("6_valas")
+texture_normal = ExtResource("6_to3nj")
+texture_pressed = ExtResource("7_56glq")
 
 [node name="Label" type="Label" parent="TrainButton"]
 layout_mode = 0
@@ -94,23 +98,43 @@ offset_top = 48.0
 offset_right = 54.0
 offset_bottom = 74.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Train 1"
+text = "Train"
+horizontal_alignment = 1
 
-[node name="RestButton" type="TextureButton" parent="."]
-offset_left = 430.0
+[node name="RewindButton" type="TextureButton" parent="."]
+offset_left = 238.0
 offset_top = 759.0
-offset_right = 478.0
+offset_right = 286.0
+offset_bottom = 807.0
+texture_normal = ExtResource("8_s1b3i")
+texture_pressed = ExtResource("9_2itvw")
+
+[node name="Label" type="Label" parent="RewindButton"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = 48.0
+offset_right = 65.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Rewind"
+horizontal_alignment = 1
+
+[node name="ResetButton" type="TextureButton" parent="."]
+offset_left = 20.0
+offset_top = 759.0
+offset_right = 68.0
 offset_bottom = 807.0
 texture_normal = ExtResource("7_34sdn")
 texture_pressed = ExtResource("8_i3nup")
 
-[node name="Label" type="Label" parent="RestButton"]
+[node name="Label" type="Label" parent="ResetButton"]
 layout_mode = 0
 offset_top = 48.0
 offset_right = 54.0
 offset_bottom = 74.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Reset"
+horizontal_alignment = 1
 
 [node name="OpeButton" type="OptionButton" parent="."]
 offset_left = 160.0
@@ -151,7 +175,7 @@ popup/item_0/text = "Sigmoid"
 popup/item_0/id = 0
 popup/item_1/text = "Tanh"
 popup/item_1/id = 1
-popup/item_2/text = "NAND"
+popup/item_2/text = "ReLU"
 popup/item_2/id = 2
 
 [node name="Label" type="Label" parent="ActvFuncButton"]
@@ -166,6 +190,7 @@ vertical_alignment = 1
 
 [connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="TrainButton" to="." method="_on_train_button_pressed"]
-[connection signal="pressed" from="RestButton" to="." method="_on_rest_button_pressed"]
+[connection signal="pressed" from="RewindButton" to="." method="_on_rewind_button_pressed"]
+[connection signal="pressed" from="ResetButton" to="." method="_on_reset_button_pressed"]
 [connection signal="item_selected" from="OpeButton" to="." method="_on_ope_button_item_selected"]
 [connection signal="item_selected" from="ActvFuncButton" to="." method="_on_actv_func_button_item_selected"]

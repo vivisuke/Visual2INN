@@ -72,6 +72,8 @@ enum {
 	LU_MINI_BATCH = 0, LU_ONLINE, LU_RANDOM_8,
 }
 const boolean_pos = [[0, 0], [1, 0], [0, 1], [1, 1]]
+const boolean_pos_tanh = [[-1, -1], [1, -1], [-1, 1], [1, 1]]
+var vec_weight_init			# 重み初期値
 var n_iteration = 0			# 学習回数
 var ope = OP_AND
 var actv_func = AF_SIGMOID
@@ -83,6 +85,7 @@ var grad
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	neuron = Neuron.new(2, AF_SIGMOID, norm)
+	vec_weight_init = neuron.vec_weight.duplicate()
 	print(neuron.vec_weight)
 	update_view()
 func update_view():
@@ -106,11 +109,13 @@ func forward_and_backward():
 	for i in range(boolean_pos.size()):
 		n_data += 1
 		var t = teacher_value(boolean_pos[i])	# 教師値
-		neuron.forward(boolean_pos[i])
+		if actv_func != AF_SIGMOID && t == 0.0: t = -1.0
+		var inp = boolean_pos[i] if actv_func == AF_SIGMOID else boolean_pos_tanh[i]
+		neuron.forward(inp)
 		var d = neuron.y - t
 		sumLoss += d * d / 2.0
 		#
-		neuron.backward(boolean_pos[i], d)
+		neuron.backward(inp, d)
 		for k in range(grad.size()):
 			grad[k] += neuron.upgrad[k]
 	var loss = sumLoss / n_data
@@ -134,9 +139,17 @@ func _on_back_button_pressed():
 func _on_train_button_pressed():	# 1ステップ学習
 	#do_train()
 	pass # Replace with function body.
-func _on_rest_button_pressed():
+func _on_reset_button_pressed():
 	n_iteration = 0
 	neuron.init_weight(norm)
+	vec_weight_init = neuron.vec_weight.duplicate()
+	update_view()
+	pass # Replace with function body.
+func _on_rewind_button_pressed():
+	print("on_rewind_button_pressed()")
+	n_iteration = 0
+	neuron.vec_weight = vec_weight_init.duplicate()
+	print()
 	update_view()
 	pass # Replace with function body.
 
