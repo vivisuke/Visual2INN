@@ -2,8 +2,8 @@ extends Node2D
 
 
 enum {
-	AF_SIGMOID = 0, AF_TANH, AF_RELU,		# 活性化関数種別
-	WI_1 = 0, WI_001, WI_XAVIER, WI_HE,		# 重み標準偏差・初期化方法
+	AF_SIGMOID = 0, AF_TANH, AF_RELU, AF_LEAKY_RELU,	# 活性化関数種別
+	WI_1 = 0, WI_001, WI_XAVIER, WI_HE,					# 重み標準偏差・初期化方法
 }
 # ニューロンクラス、N入力１出力
 # 活性化関数：シグモイド・tanh・ReLU etc ?
@@ -35,6 +35,7 @@ class Neuron:
 					vec_weight[i] /= sq
 	func sigmoid(x): return 1.0/(1.0 + exp(-x))
 	func ReLU(x): return x if x > 0.0 else 0.0
+	func LeakyReLU(x): return x if x > 0.0 else 0.01*x
 	func forward(inp: Array):
 		a = vec_weight[0]
 		for i in range(n_input):
@@ -42,15 +43,17 @@ class Neuron:
 		if actv_func == AF_TANH: y = tanh(a)
 		elif actv_func == AF_SIGMOID: y = sigmoid(a)
 		elif actv_func == AF_RELU: y = ReLU(a)
+		elif actv_func == AF_LEAKY_RELU: y = LeakyReLU(a)
 		#print("a = ", a, ", y = ", y)
 	func backward(inp: Array, grad: float):
 		upgrad = []		# 上流勾配
 		var dyda
 		if actv_func == AF_TANH: dyda = (1.0 - y*y)			# tanh
 		elif actv_func == AF_SIGMOID: dyda = y * (1.0 - y)	# sigmoid
-		elif actv_func == AF_RELU: #dyda = (0.0 if y <= 0 else 1.0)		# ReLU
-			if y <= 0: dyda = 0.0
-			else: dyda = 1.0
+		elif actv_func == AF_RELU: dyda = (0.0 if y <= 0 else 1.0)		# ReLU
+			#if y <= 0: dyda = 0.0
+			#else: dyda = 1.0
+		elif actv_func == AF_LEAKY_RELU: dyda = (0.01 if y <= 0 else 1.0)		# Leaky ReLU
 		var dydag = dyda * grad
 		upgrad.push_back(dydag)		# for b
 		#print("∂L/∂y = ", grad)
@@ -88,6 +91,7 @@ func _ready():
 	vec_weight_init = neuron.vec_weight.duplicate()
 	print(neuron.vec_weight)
 	update_view()
+	$LearnRate.text = "%.3f" % ALPHA
 func update_view():
 	$ItrLabel.text = "Iteration: %d" % n_iteration
 	$WeightLabel.text = "[b, w1, w2] = [%.3f, %.3f, %.3f]" % neuron.vec_weight
@@ -102,14 +106,17 @@ func teacher_value(inp:Array):
 	elif ope == OP_GT: return 1.0 if inp[0] > inp[1] else 0.0					# x1 > x2
 	elif ope == OP_XOR: return 1.0 if inp[0] != inp[1] else 0.0					# XOR
 	return 0.0
+func teacher_value_ex(inp:Array):
+	var t = teacher_value(inp)
+	if actv_func != AF_SIGMOID && t == 0.0: t = -1.0
+	return t
 func forward_and_backward():
 	grad = [0.0, 0.0, 0.0]
 	var sumLoss = 0.0
 	var n_data = 0		# ミニバッチデータ数カウンタ
 	for i in range(boolean_pos.size()):
 		n_data += 1
-		var t = teacher_value(boolean_pos[i])	# 教師値
-		if actv_func != AF_SIGMOID && t == 0.0: t = -1.0
+		var t = teacher_value_ex(boolean_pos[i])	# 教師値
 		var inp = boolean_pos[i] if actv_func == AF_SIGMOID else boolean_pos_tanh[i]
 		neuron.forward(inp)
 		var y = neuron.y
@@ -171,4 +178,10 @@ func _on_actv_func_button_item_selected(index):
 	$GraphRect.queue_redraw()
 	forward_and_backward()
 	update_view()
+	pass # Replace with function body.
+
+
+func _on_learn_rate_text_changed(new_text):
+	ALPHA = float(new_text)
+	$LearnRate.text = "%.3f" % ALPHA
 	pass # Replace with function body.

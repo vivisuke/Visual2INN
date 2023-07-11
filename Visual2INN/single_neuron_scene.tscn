@@ -54,32 +54,32 @@ text = "Iteration: 0"
 
 [node name="GraphRect" type="ColorRect" parent="."]
 offset_left = 20.0
-offset_top = 120.0
+offset_top = 160.0
 offset_right = 480.0
-offset_bottom = 580.0
+offset_bottom = 620.0
 script = ExtResource("4_o5gbt")
 
 [node name="WeightLabel" type="Label" parent="."]
 offset_left = 20.0
-offset_top = 590.0
+offset_top = 630.0
 offset_right = 175.0
-offset_bottom = 616.0
+offset_bottom = 656.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "[b, w1, w2] = [0, 0, 0]"
 
 [node name="GradLabel" type="Label" parent="."]
 offset_left = 20.0
-offset_top = 620.0
+offset_top = 660.0
 offset_right = 208.0
-offset_bottom = 646.0
+offset_bottom = 686.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "∂L/∂[b, w1, w2] = [0, 0, 0]"
 
 [node name="LossLabel" type="Label" parent="."]
 offset_left = 318.0
-offset_top = 590.0
+offset_top = 630.0
 offset_right = 480.0
-offset_bottom = 616.0
+offset_bottom = 656.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Loss: N/A"
 horizontal_alignment = 2
@@ -165,11 +165,11 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="ActvFuncButton" type="OptionButton" parent="."]
-offset_left = 370.0
+offset_left = 352.0
 offset_top = 80.0
-offset_right = 468.0
+offset_right = 480.0
 offset_bottom = 111.0
-item_count = 3
+item_count = 4
 selected = 0
 popup/item_0/text = "Sigmoid"
 popup/item_0/id = 0
@@ -177,6 +177,8 @@ popup/item_1/text = "Tanh"
 popup/item_1/id = 1
 popup/item_2/text = "ReLU"
 popup/item_2/id = 2
+popup/item_3/text = "LeakyReLU"
+popup/item_3/id = 3
 
 [node name="Label" type="Label" parent="ActvFuncButton"]
 layout_mode = 0
@@ -188,9 +190,26 @@ text = "Actv-Func:"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="LearnRate" type="LineEdit" parent="."]
+offset_left = 190.0
+offset_top = 120.0
+offset_right = 257.063
+offset_bottom = 151.0
+alignment = 2
+
+[node name="Label" type="Label" parent="LearnRate"]
+offset_left = -162.0
+offset_right = -6.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "learning rate:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="TrainButton" to="." method="_on_train_button_pressed"]
 [connection signal="pressed" from="RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="pressed" from="ResetButton" to="." method="_on_reset_button_pressed"]
 [connection signal="item_selected" from="OpeButton" to="." method="_on_ope_button_item_selected"]
 [connection signal="item_selected" from="ActvFuncButton" to="." method="_on_actv_func_button_item_selected"]
+[connection signal="text_changed" from="LearnRate" to="." method="_on_learn_rate_text_changed"]

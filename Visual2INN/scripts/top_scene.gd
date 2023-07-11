@@ -15,3 +15,8 @@ func _on_single_nueron_button_pressed():
 	print("single_nueron_button_pressed()")
 	get_tree().change_scene_to_file("res://single_neuron_scene.tscn")
 	pass # Replace with function body.
+
+
+func _on_double_layer_button_pressed():
+	get_tree().change_scene_to_file("res://double_layer_scene.tscn")
+	pass # Replace with function body.

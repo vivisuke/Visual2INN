@@ -40,7 +40,7 @@ offset_bottom = 460.0
 theme = SubResource("Theme_a44im")
 script = ExtResource("1_iorm7")
 
-[node name="DoubleNueronButton" type="TextureButton" parent="."]
+[node name="DoubleLayerButton" type="TextureButton" parent="."]
 offset_left = 20.0
 offset_top = 480.0
 offset_right = 480.0
@@ -49,3 +49,4 @@ theme = SubResource("Theme_a44im")
 script = ExtResource("3_jxh1d")
 
 [connection signal="pressed" from="SingleNueronButton" to="." method="_on_single_nueron_button_pressed"]
+[connection signal="pressed" from="DoubleLayerButton" to="." method="_on_double_layer_button_pressed"]
