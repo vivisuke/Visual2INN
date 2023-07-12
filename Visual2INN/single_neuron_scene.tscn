@@ -52,90 +52,6 @@ offset_bottom = 76.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Iteration: 0"
 
-[node name="GraphRect" type="ColorRect" parent="."]
-offset_left = 20.0
-offset_top = 160.0
-offset_right = 480.0
-offset_bottom = 620.0
-script = ExtResource("4_o5gbt")
-
-[node name="WeightLabel" type="Label" parent="."]
-offset_left = 20.0
-offset_top = 630.0
-offset_right = 175.0
-offset_bottom = 656.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "[b, w1, w2] = [0, 0, 0]"
-
-[node name="GradLabel" type="Label" parent="."]
-offset_left = 20.0
-offset_top = 660.0
-offset_right = 208.0
-offset_bottom = 686.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "∂L/∂[b, w1, w2] = [0, 0, 0]"
-
-[node name="LossLabel" type="Label" parent="."]
-offset_left = 318.0
-offset_top = 630.0
-offset_right = 480.0
-offset_bottom = 656.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Loss: N/A"
-horizontal_alignment = 2
-
-[node name="TrainButton" type="TextureButton" parent="."]
-offset_left = 430.0
-offset_top = 759.0
-offset_right = 478.0
-offset_bottom = 807.0
-texture_normal = ExtResource("6_to3nj")
-texture_pressed = ExtResource("7_56glq")
-
-[node name="Label" type="Label" parent="TrainButton"]
-layout_mode = 0
-offset_top = 48.0
-offset_right = 54.0
-offset_bottom = 74.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Train"
-horizontal_alignment = 1
-
-[node name="RewindButton" type="TextureButton" parent="."]
-offset_left = 238.0
-offset_top = 759.0
-offset_right = 286.0
-offset_bottom = 807.0
-texture_normal = ExtResource("8_s1b3i")
-texture_pressed = ExtResource("9_2itvw")
-
-[node name="Label" type="Label" parent="RewindButton"]
-layout_mode = 0
-offset_left = -16.0
-offset_top = 48.0
-offset_right = 65.0
-offset_bottom = 74.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Rewind"
-horizontal_alignment = 1
-
-[node name="ResetButton" type="TextureButton" parent="."]
-offset_left = 20.0
-offset_top = 759.0
-offset_right = 68.0
-offset_bottom = 807.0
-texture_normal = ExtResource("7_34sdn")
-texture_pressed = ExtResource("8_i3nup")
-
-[node name="Label" type="Label" parent="ResetButton"]
-layout_mode = 0
-offset_top = 48.0
-offset_right = 54.0
-offset_bottom = 74.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Reset"
-horizontal_alignment = 1
-
 [node name="OpeButton" type="OptionButton" parent="."]
 offset_left = 160.0
 offset_top = 80.0
@@ -206,10 +122,94 @@ text = "learning rate:"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="GraphRect" type="ColorRect" parent="."]
+offset_left = 20.0
+offset_top = 160.0
+offset_right = 480.0
+offset_bottom = 620.0
+script = ExtResource("4_o5gbt")
+
+[node name="WeightLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 630.0
+offset_right = 175.0
+offset_bottom = 656.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2] = [0, 0, 0]"
+
+[node name="GradLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 660.0
+offset_right = 208.0
+offset_bottom = 686.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2] = [0, 0, 0]"
+
+[node name="LossLabel" type="Label" parent="."]
+offset_left = 318.0
+offset_top = 630.0
+offset_right = 480.0
+offset_bottom = 656.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Loss: N/A"
+horizontal_alignment = 2
+
+[node name="ResetButton" type="TextureButton" parent="."]
+offset_left = 20.0
+offset_top = 820.0
+offset_right = 68.0
+offset_bottom = 868.0
+texture_normal = ExtResource("7_34sdn")
+texture_pressed = ExtResource("8_i3nup")
+
+[node name="Label" type="Label" parent="ResetButton"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 54.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Reset"
+horizontal_alignment = 1
+
+[node name="RewindButton" type="TextureButton" parent="."]
+offset_left = 238.0
+offset_top = 820.0
+offset_right = 286.0
+offset_bottom = 868.0
+texture_normal = ExtResource("8_s1b3i")
+texture_pressed = ExtResource("9_2itvw")
+
+[node name="Label" type="Label" parent="RewindButton"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = 48.0
+offset_right = 65.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Rewind"
+horizontal_alignment = 1
+
+[node name="TrainButton" type="TextureButton" parent="."]
+offset_left = 430.0
+offset_top = 820.0
+offset_right = 478.0
+offset_bottom = 868.0
+texture_normal = ExtResource("6_to3nj")
+texture_pressed = ExtResource("7_56glq")
+
+[node name="Label" type="Label" parent="TrainButton"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 54.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Train"
+horizontal_alignment = 1
+
 [connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
-[connection signal="pressed" from="TrainButton" to="." method="_on_train_button_pressed"]
-[connection signal="pressed" from="RewindButton" to="." method="_on_rewind_button_pressed"]
-[connection signal="pressed" from="ResetButton" to="." method="_on_reset_button_pressed"]
 [connection signal="item_selected" from="OpeButton" to="." method="_on_ope_button_item_selected"]
 [connection signal="item_selected" from="ActvFuncButton" to="." method="_on_actv_func_button_item_selected"]
 [connection signal="text_changed" from="LearnRate" to="." method="_on_learn_rate_text_changed"]
+[connection signal="pressed" from="ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="RewindButton" to="." method="_on_rewind_button_pressed"]
+[connection signal="pressed" from="TrainButton" to="." method="_on_train_button_pressed"]

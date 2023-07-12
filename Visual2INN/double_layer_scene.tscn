@@ -1,11 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5sglb75f1i4k"]
+[gd_scene load_steps=12 format=3 uid="uid://b5sglb75f1i4k"]
 
+[ext_resource type="Script" path="res://scripts/double_layer_scene.gd" id="1_6fyxs"]
 [ext_resource type="Script" path="res://scripts/TitleBar.gd" id="1_e66p6"]
 [ext_resource type="Texture2D" uid="uid://bukgrrvcqvv37" path="res://images/leftward_black.png" id="2_1tch1"]
 [ext_resource type="Texture2D" uid="uid://b5bjn1p1s6rml" path="res://images/leftward_gray.png" id="3_ocfr1"]
 [ext_resource type="Script" path="res://scripts/GraphRect.gd" id="4_1liwy"]
+[ext_resource type="Texture2D" uid="uid://cxdyva45dvh5k" path="res://images/refresh_black.png" id="6_f2vsk"]
+[ext_resource type="Texture2D" uid="uid://bdweaw2al2omp" path="res://images/refresh_gray.png" id="7_fyjkw"]
+[ext_resource type="Texture2D" uid="uid://kmt3c2kn8v5t" path="res://images/play_arrow_black.png" id="8_rgk6b"]
+[ext_resource type="Texture2D" uid="uid://bwu5cabap8j01" path="res://images/play_arrow_gray.png" id="9_0shjy"]
+[ext_resource type="Texture2D" uid="uid://c0jn1uo51xqp7" path="res://images/first_page_black.png" id="10_63mn2"]
+[ext_resource type="Texture2D" uid="uid://dypwiooquumj1" path="res://images/first_page_gray.png" id="11_hkjfk"]
 
 [node name="DoubleLayerScene" type="Node2D"]
+script = ExtResource("1_6fyxs")
 
 [node name="BG" type="ColorRect" parent="."]
 offset_top = -1.0
@@ -44,9 +52,219 @@ offset_bottom = 76.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Iteration: 0"
 
-[node name="GraphRect" type="ColorRect" parent="."]
+[node name="OpeButton" type="OptionButton" parent="."]
+offset_left = 160.0
+offset_top = 80.0
+offset_right = 258.0
+offset_bottom = 111.0
+item_count = 5
+selected = 0
+popup/item_0/text = "AND"
+popup/item_0/id = 0
+popup/item_1/text = "OR"
+popup/item_1/id = 1
+popup/item_2/text = "NAND"
+popup/item_2/id = 2
+popup/item_3/text = "x1 > X2"
+popup/item_3/id = 3
+popup/item_4/text = "XOR"
+popup/item_4/id = 4
+
+[node name="Label" type="Label" parent="OpeButton"]
+layout_mode = 0
+offset_left = -132.0
+offset_right = -6.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "teacher func op:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ActvFuncButton" type="OptionButton" parent="."]
+offset_left = 352.0
+offset_top = 80.0
+offset_right = 480.0
+offset_bottom = 111.0
+item_count = 4
+selected = 0
+popup/item_0/text = "Sigmoid"
+popup/item_0/id = 0
+popup/item_1/text = "Tanh"
+popup/item_1/id = 1
+popup/item_2/text = "ReLU"
+popup/item_2/id = 2
+popup/item_3/text = "LeakyReLU"
+popup/item_3/id = 3
+
+[node name="Label" type="Label" parent="ActvFuncButton"]
+layout_mode = 0
+offset_left = -132.0
+offset_right = -6.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Actv-Func:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LearnRate" type="LineEdit" parent="."]
+offset_left = 190.0
+offset_top = 120.0
+offset_right = 257.063
+offset_bottom = 151.0
+alignment = 2
+
+[node name="Label" type="Label" parent="LearnRate"]
+offset_left = -162.0
+offset_right = -6.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "learning rate:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="GraphRect1" type="ColorRect" parent="."]
 offset_left = 20.0
 offset_top = 160.0
-offset_right = 480.0
-offset_bottom = 620.0
+offset_right = 340.0
+offset_bottom = 480.0
 script = ExtResource("4_1liwy")
+
+[node name="Label" type="Label" parent="GraphRect1"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1st Layer Input"
+horizontal_alignment = 1
+
+[node name="GraphRect2" type="ColorRect" parent="."]
+offset_left = 20.0
+offset_top = 500.0
+offset_right = 340.0
+offset_bottom = 820.0
+script = ExtResource("4_1liwy")
+
+[node name="Label" type="Label" parent="GraphRect2"]
+offset_right = 300.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "2nd Layer Input"
+horizontal_alignment = 1
+
+[node name="ResetButton" type="TextureButton" parent="."]
+offset_left = 20.0
+offset_top = 830.0
+offset_right = 68.0
+offset_bottom = 878.0
+texture_normal = ExtResource("6_f2vsk")
+texture_pressed = ExtResource("7_fyjkw")
+
+[node name="Label" type="Label" parent="ResetButton"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 54.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Reset"
+horizontal_alignment = 1
+
+[node name="RewindButton" type="TextureButton" parent="."]
+offset_left = 238.0
+offset_top = 830.0
+offset_right = 286.0
+offset_bottom = 878.0
+texture_normal = ExtResource("10_63mn2")
+texture_pressed = ExtResource("11_hkjfk")
+
+[node name="Label" type="Label" parent="RewindButton"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = 40.0
+offset_right = 65.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Rewind"
+horizontal_alignment = 1
+
+[node name="TrainButton" type="TextureButton" parent="."]
+offset_left = 430.0
+offset_top = 830.0
+offset_right = 478.0
+offset_bottom = 878.0
+texture_normal = ExtResource("8_rgk6b")
+texture_pressed = ExtResource("9_0shjy")
+
+[node name="Label" type="Label" parent="TrainButton"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 54.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Train"
+horizontal_alignment = 1
+
+[node name="Weight11Label" type="Label" parent="."]
+offset_left = 352.0
+offset_top = 160.0
+offset_right = 500.0
+offset_bottom = 212.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2] = 
+    [0, 0, 0]"
+
+[node name="Grad11Label" type="Label" parent="."]
+offset_left = 352.0
+offset_top = 212.0
+offset_right = 500.0
+offset_bottom = 264.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2] =
+    [0, 0, 0]"
+
+[node name="Weight12Label" type="Label" parent="."]
+offset_left = 352.0
+offset_top = 264.0
+offset_right = 500.0
+offset_bottom = 316.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2] = 
+    [0, 0, 0]"
+
+[node name="Grad12Label" type="Label" parent="."]
+offset_left = 352.0
+offset_top = 316.0
+offset_right = 500.0
+offset_bottom = 368.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2] =
+    [0, 0, 0]"
+
+[node name="Weight21Label" type="Label" parent="."]
+offset_left = 352.0
+offset_top = 500.0
+offset_right = 500.0
+offset_bottom = 552.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2] = 
+    [0, 0, 0]"
+
+[node name="Grad21Label" type="Label" parent="."]
+offset_left = 352.0
+offset_top = 552.0
+offset_right = 500.0
+offset_bottom = 604.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2] =
+    [0, 0, 0]"
+
+[node name="LossLabel" type="Label" parent="."]
+offset_left = 320.0
+offset_top = 795.0
+offset_right = 482.0
+offset_bottom = 821.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Loss: N/A"
+horizontal_alignment = 2
+
+[connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="ResetButton" to="." method="_on_reset_button_pressed"]
