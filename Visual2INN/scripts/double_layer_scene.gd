@@ -91,6 +91,7 @@ func _ready():
 	first_layer[0] = Neuron.new(2, AF_SIGMOID, norm)
 	first_layer[1] = Neuron.new(2, AF_SIGMOID, norm)
 	neuron_sl = Neuron.new(2, AF_SIGMOID, norm)
+	$GraphRect2.to_plot_boolean = false
 	update_view()
 	$LearnRate.text = "%.3f" % ALPHA
 	pass # Replace with function body.
@@ -118,15 +119,19 @@ func teacher_value_ex(inp:Array):
 	return t
 func forward_and_backward():
 	grad = [0.0, 0.0, 0.0]
+	var vec_inp2 = []
+	var vec_tv = []
 	var sumLoss = 0.0
 	var n_data = 0		# ミニバッチデータ数カウンタ
 	for i in range(boolean_pos.size()):
 		n_data += 1
 		var t = teacher_value_ex(boolean_pos[i])	# 教師値
+		vec_tv.push_back(t)
 		var inp = boolean_pos[i] if actv_func == AF_SIGMOID else boolean_pos_tanh[i]
 		first_layer[0].forward(inp)
 		first_layer[1].forward(inp)
 		var inp2 = [first_layer[0].y, first_layer[1].y]		# 第２層入力
+		vec_inp2.push_back(inp2)
 		neuron_sl.forward(inp2)
 		var y = neuron_sl.y
 		if actv_func == AF_RELU:
@@ -137,6 +142,10 @@ func forward_and_backward():
 		##neuron.backward(inp, d)
 		##for k in range(grad.size()):
 		##	grad[k] += neuron.upgrad[k]
+	print(vec_inp2)
+	$GraphRect2.vec_tv = vec_tv
+	$GraphRect2.vec_input = vec_inp2
+	$GraphRect2.queue_redraw()
 	var loss = sumLoss / n_data
 	$LossLabel.text = "Loss = %.3f" % loss
 

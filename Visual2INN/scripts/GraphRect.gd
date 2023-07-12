@@ -49,7 +49,7 @@ var vec_weight = [-1.0, 1.0, 1.0]			# [b, w1, w2] 重みベクター
 var vv_weight = []							# [[b, w1, w2], [b, w1, w2], ...] 重みベクターリスト
 var axis_labels = []
 var vec_input = []						# 入力データ配列, [x1, y1] or [x1, y1, bool]
-var vec_tv = []							# 教師値配列、要素：true/false
+var vec_tv = []							# 教師値配列、要素：true/false or -1
 
 # 目盛り値ラベル設置
 func add_axis_label(pos, txt):
@@ -152,7 +152,7 @@ func plot_points():
 		if vec_tv.is_empty():
 			dot_plot(Vector2(x, y), vec_input[i][2])
 		else:
-			dot_plot(Vector2(x, y), vec_tv[i])
+			dot_plot(Vector2(x, y), float(vec_tv[i]) > 0.0)
 func _draw():
 	#print("draw()")
 	# 背景＋影 描画
