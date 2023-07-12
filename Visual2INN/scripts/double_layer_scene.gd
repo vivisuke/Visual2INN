@@ -103,7 +103,42 @@ func update_view():
 	$GraphRect1.queue_redraw()
 	$GraphRect2.vv_weight = [neuron_sl.vec_weight]
 	$GraphRect2.queue_redraw()
+	forward_and_backward()
 	pass
+func teacher_value(inp:Array):
+	if ope == OP_AND: return 1.0 if inp[0] != 0 && inp[1] != 0.0 else 0.0		# AND
+	elif ope == OP_OR: return 1.0 if inp[0] != 0 || inp[1] != 0.0 else 0.0		# OR
+	elif ope == OP_NAND: return 0.0 if inp[0] != 0 && inp[1] != 0.0 else 1.0	# NAND
+	elif ope == OP_GT: return 1.0 if inp[0] > inp[1] else 0.0					# x1 > x2
+	elif ope == OP_XOR: return 1.0 if inp[0] != inp[1] else 0.0					# XOR
+	return 0.0
+func teacher_value_ex(inp:Array):
+	var t = teacher_value(inp)
+	if actv_func != AF_SIGMOID && t == 0.0: t = -1.0
+	return t
+func forward_and_backward():
+	grad = [0.0, 0.0, 0.0]
+	var sumLoss = 0.0
+	var n_data = 0		# ミニバッチデータ数カウンタ
+	for i in range(boolean_pos.size()):
+		n_data += 1
+		var t = teacher_value_ex(boolean_pos[i])	# 教師値
+		var inp = boolean_pos[i] if actv_func == AF_SIGMOID else boolean_pos_tanh[i]
+		first_layer[0].forward(inp)
+		first_layer[1].forward(inp)
+		var inp2 = [first_layer[0].y, first_layer[1].y]		# 第２層入力
+		neuron_sl.forward(inp2)
+		var y = neuron_sl.y
+		if actv_func == AF_RELU:
+			y = 1.0 if y > 0.0 else -1.0
+		var d = y - t
+		sumLoss += d * d / 2.0
+		#
+		##neuron.backward(inp, d)
+		##for k in range(grad.size()):
+		##	grad[k] += neuron.upgrad[k]
+	var loss = sumLoss / n_data
+	$LossLabel.text = "Loss = %.3f" % loss
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
