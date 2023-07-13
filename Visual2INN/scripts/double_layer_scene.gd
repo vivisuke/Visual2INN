@@ -77,7 +77,7 @@ const boolean_pos = [[0, 0], [1, 0], [0, 1], [1, 1]]
 const boolean_pos_tanh = [[-1, -1], [1, -1], [-1, 1], [1, 1]]
 var vec_weight11_init		# 重み初期値
 var vec_weight12_init		# 重み初期値
-var vec_weight21_init		# 第２層重み初期値
+var vec_weight2_init		# 第２層重み初期値
 var n_iteration = 0			# 学習回数
 var ope = OP_XOR
 var actv_func = AF_SIGMOID
@@ -86,20 +86,20 @@ var norm = 0.1				# 重み初期化時標準偏差
 #var neuron
 var grad_11
 var grad_12
-var grad_sl
+var grad_2
 #var first_layer = [0, 0]	# 第1層ニューロン
 var neuron_11				# 第1層ニューロン その1
 var neuron_12				# 第1層ニューロン その2
-var neuron_sl				# 第2層ニューロン
+var neuron_2				# 第2層ニューロン
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	neuron_11 = Neuron.new(2, AF_SIGMOID, norm)
 	neuron_12 = Neuron.new(2, AF_SIGMOID, norm)
-	neuron_sl = Neuron.new(2, AF_SIGMOID, norm)
+	neuron_2 = Neuron.new(2, AF_SIGMOID, norm)
 	vec_weight11_init = neuron_11.vec_weight.duplicate()
 	vec_weight12_init = neuron_12.vec_weight.duplicate()
-	vec_weight21_init = neuron_sl.vec_weight.duplicate()
+	vec_weight2_init = neuron_2.vec_weight.duplicate()
 	$GraphRect1.ope = ope
 	$GraphRect2.to_plot_boolean = false
 	update_view()
@@ -109,10 +109,10 @@ func update_view():
 	$ItrLabel.text = "Iteration: %d" % n_iteration
 	$Weight11Label.text = "[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % neuron_11.vec_weight
 	$Weight12Label.text = "[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % neuron_12.vec_weight
-	$Weight21Label.text = "[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % neuron_sl.vec_weight
+	$Weight2Label.text = "[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % neuron_2.vec_weight
 	$GraphRect1.vv_weight = [neuron_11.vec_weight, neuron_12.vec_weight]
 	$GraphRect1.queue_redraw()
-	$GraphRect2.vv_weight = [neuron_sl.vec_weight]
+	$GraphRect2.vv_weight = [neuron_2.vec_weight]
 	$GraphRect2.queue_redraw()
 	forward_and_backward()
 	pass
@@ -130,7 +130,7 @@ func teacher_value_ex(inp:Array):
 func forward_and_backward():
 	grad_11 = [0.0, 0.0, 0.0]
 	grad_12 = [0.0, 0.0, 0.0]
-	grad_sl = [0.0, 0.0, 0.0]
+	grad_2 = [0.0, 0.0, 0.0]
 	var vec_inp2 = []
 	var vec_tv = []
 	var sumLoss = 0.0
@@ -144,29 +144,37 @@ func forward_and_backward():
 		neuron_12.forward(inp)
 		var inp2 = [neuron_11.y, neuron_12.y]		# 第２層入力
 		vec_inp2.push_back(inp2)
-		neuron_sl.forward(inp2)
-		var y = neuron_sl.y
+		neuron_2.forward(inp2)
+		var y = neuron_2.y
 		if actv_func == AF_RELU:
 			y = 1.0 if y > 0.0 else -1.0
 		var d = y - t
 		sumLoss += d * d / 2.0
 		#
-		neuron_sl.backward(inp2, d)
-		for k in range(grad_sl.size()):
-			grad_sl[k] += neuron_sl.upgrad[k]
-		
+		neuron_2.backward(inp2, d)
+		for k in range(grad_2.size()):
+			grad_2[k] += neuron_2.upgrad[k]
+		neuron_11.backward(inp, neuron_2.upgrad[0])
+		neuron_12.backward(inp, neuron_2.upgrad[1])
+		for k in range(grad_11.size()):
+			grad_11[k] += neuron_11.upgrad[k]
+			grad_12[k] += neuron_12.upgrad[k]
 	print(vec_inp2)
 	$GraphRect2.vec_tv = vec_tv
 	$GraphRect2.vec_input = vec_inp2
 	$GraphRect2.queue_redraw()
 	var loss = sumLoss / n_data
 	$LossLabel.text = "Loss = %.3f" % loss
-	$Grad21Label.text = "∂L/[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % grad_sl
+	$Grad11Label.text = "∂L/[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % grad_11
+	$Grad12Label.text = "∂L/[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % grad_12
+	$Grad2Label.text = "∂L/[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % grad_2
 
 func do_train():
 	n_iteration += 1
-	for i in range(neuron_sl.vec_weight.size()):
-		neuron_sl.vec_weight[i] -= grad_sl[i] * ALPHA
+	for i in range(neuron_2.vec_weight.size()):
+		neuron_11.vec_weight[i] -= grad_11[i] * ALPHA
+		neuron_12.vec_weight[i] -= grad_12[i] * ALPHA
+		neuron_2.vec_weight[i] -= grad_2[i] * ALPHA
 	update_view()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -184,10 +192,10 @@ func _on_reset_button_pressed():
 	n_iteration = 0
 	neuron_11.init_weight(norm)
 	neuron_12.init_weight(norm)
-	neuron_sl.init_weight(norm)
+	neuron_2.init_weight(norm)
 	vec_weight11_init = neuron_11.vec_weight.duplicate()
 	vec_weight12_init = neuron_12.vec_weight.duplicate()
-	vec_weight21_init = neuron_sl.vec_weight.duplicate()
+	vec_weight2_init = neuron_2.vec_weight.duplicate()
 	update_view()
 	pass # Replace with function body.
 
@@ -196,7 +204,7 @@ func _on_rewind_button_pressed():
 	n_iteration = 0
 	neuron_11.vec_weight = vec_weight11_init.duplicate()
 	neuron_12.vec_weight = vec_weight12_init.duplicate()
-	neuron_sl.vec_weight = vec_weight21_init.duplicate()
+	neuron_2.vec_weight = vec_weight2_init.duplicate()
 	update_view()
 	pass # Replace with function body.
 
@@ -218,7 +226,7 @@ func _on_actv_func_button_item_selected(index):
 	actv_func = index
 	neuron_11.actv_func = actv_func
 	neuron_12.actv_func = actv_func
-	neuron_sl.actv_func = actv_func
+	neuron_2.actv_func = actv_func
 	$GraphRect1.actv_func = actv_func
 	#$GraphRect1.queue_redraw()
 	forward_and_backward()
