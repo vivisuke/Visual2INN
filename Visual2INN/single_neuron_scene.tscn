@@ -114,6 +114,7 @@ offset_bottom = 151.0
 alignment = 2
 
 [node name="Label" type="Label" parent="LearnRate"]
+layout_mode = 0
 offset_left = -162.0
 offset_right = -6.0
 offset_bottom = 31.0

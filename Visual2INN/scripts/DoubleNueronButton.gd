@@ -61,9 +61,9 @@ func _ready():
 	#add_label(Vector2(X_AF, Y_X1-10), "h()")
 	#
 	add_label_raw(Vector2(X_INPUT, Y_LINE-24), "Affine")
-	add_label_raw(Vector2(X_ACT+10, Y_LINE-24), "ActvF")
-	add_label_raw(Vector2(X_INPUT_2+10, Y_LINE-24), "Affine")
-	add_label_raw(Vector2(X_ACT_2+20, Y_LINE-24), "ActvF")
+	add_label_raw(Vector2(X_ACT+10, Y_LINE-24), "ActvFunc")
+	add_label_raw(Vector2(X_INPUT_2+20, Y_LINE-24), "Affine")
+	add_label_raw(Vector2(X_ACT_2+20, Y_LINE-24), "ActvFunc")
 	#
 	pass # Replace with function body.
 

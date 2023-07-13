@@ -159,7 +159,6 @@ func _on_rewind_button_pressed():
 	print("on_rewind_button_pressed()")
 	n_iteration = 0
 	neuron.vec_weight = vec_weight_init.duplicate()
-	print()
 	update_view()
 	pass # Replace with function body.
 
