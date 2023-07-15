@@ -12,15 +12,18 @@ config_version=5
 
 config/name="Visual2INN"
 run/main_scene="res://top_scene.tscn"
-config/features=PackedStringArray("4.1", "GL Compatibility")
+config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
 
 window/size/viewport_width=500
 window/size/viewport_height=900
+window/stretch/mode="viewport"
+window/handheld/orientation=1
 
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

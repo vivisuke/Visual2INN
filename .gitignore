@@ -15,4 +15,8 @@ data_*/
 mono_crash.*.json
 
 #
+Visual2INN/android_bin/*.*
+Visual2INN/android/*.*
+build/
 *.apk
+Visual2INN/windows/*.*

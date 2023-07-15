@@ -165,9 +165,9 @@ func forward_and_backward():
 	$GraphRect2.queue_redraw()
 	var loss = sumLoss / n_data
 	$LossLabel.text = "Loss = %.3f" % loss
-	$Grad11Label.text = "∂L/[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % grad_11
-	$Grad12Label.text = "∂L/[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % grad_12
-	$Grad2Label.text = "∂L/[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % grad_2
+	$Grad11Label.text = "∂L/∂[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % grad_11
+	$Grad12Label.text = "∂L/∂[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % grad_12
+	$Grad2Label.text = "∂L/∂[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % grad_2
 
 func do_train():
 	n_iteration += 1

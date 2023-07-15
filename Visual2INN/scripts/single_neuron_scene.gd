@@ -130,7 +130,7 @@ func forward_and_backward():
 			grad[k] += neuron.upgrad[k]
 	var loss = sumLoss / n_data
 	$LossLabel.text = "Loss = %.3f" % loss
-	$GradLabel.text = "∂L/[b, w1, w2] = [%.3f, %.3f, %.3f]" % grad
+	$GradLabel.text = "∂L/∂[b, w1, w2] = [%.3f, %.3f, %.3f]" % grad
 	pass
 func do_train():
 	n_iteration += 1

@@ -42,7 +42,7 @@ script = ExtResource("1_iorm7")
 
 [node name="Label" type="Label" parent="SingleNueronButton"]
 layout_mode = 0
-offset_left = 300.0
+offset_left = 230.0
 offset_top = 350.0
 offset_right = 454.0
 offset_bottom = 376.0
@@ -60,7 +60,8 @@ theme = SubResource("Theme_a44im")
 script = ExtResource("3_jxh1d")
 
 [node name="Label" type="Label" parent="DoubleLayerButton"]
-offset_left = 300.0
+layout_mode = 0
+offset_left = 230.0
 offset_top = 350.0
 offset_right = 454.0
 offset_bottom = 376.0

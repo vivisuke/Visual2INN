@@ -73,8 +73,9 @@ func _input(event):
 	if event is InputEventMouseButton:
 		var mpos = get_global_mouse_position()
 		if point_in_rect(self, mpos):
-			selected = !event.is_released()
-			print(event.is_released())
+			selected = event.is_pressed()
+			#selected = !event.is_released()
+			print(event.is_pressed())
 			print(get_local_mouse_position())
 			queue_redraw()
 	pass
