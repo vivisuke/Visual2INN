@@ -33,7 +33,7 @@ offset_top = 50.0
 offset_right = 500.0
 offset_bottom = 76.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "ver 0.001"
+text = "ver 0.002"
 horizontal_alignment = 1
 
 [node name="Panels" type="Node2D" parent="."]

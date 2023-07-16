@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2dpk4k1lwy2j"]
+[gd_scene load_steps=12 format=3 uid="uid://d2dpk4k1lwy2j"]
 
 [ext_resource type="Script" path="res://scripts/double_layer_real.gd" id="1_cw0un"]
 [ext_resource type="Script" path="res://scripts/TitleBar.gd" id="1_s0ug5"]
 [ext_resource type="Texture2D" uid="uid://bukgrrvcqvv37" path="res://images/leftward_black.png" id="2_drq8n"]
 [ext_resource type="Texture2D" uid="uid://b5bjn1p1s6rml" path="res://images/leftward_gray.png" id="3_4gokt"]
+[ext_resource type="Script" path="res://scripts/GraphRect.gd" id="5_uv6xk"]
+[ext_resource type="Texture2D" uid="uid://cxdyva45dvh5k" path="res://images/refresh_black.png" id="6_v7rxe"]
+[ext_resource type="Texture2D" uid="uid://bdweaw2al2omp" path="res://images/refresh_gray.png" id="7_v2uli"]
+[ext_resource type="Texture2D" uid="uid://c0jn1uo51xqp7" path="res://images/first_page_black.png" id="8_p2hhu"]
+[ext_resource type="Texture2D" uid="uid://dypwiooquumj1" path="res://images/first_page_gray.png" id="9_wn2w1"]
+[ext_resource type="Texture2D" uid="uid://kmt3c2kn8v5t" path="res://images/play_arrow_black.png" id="10_xsixd"]
+[ext_resource type="Texture2D" uid="uid://bwu5cabap8j01" path="res://images/play_arrow_gray.png" id="11_qmnly"]
 
 [node name="DoubleLayerReal" type="Node2D"]
 script = ExtResource("1_cw0un")
@@ -36,5 +43,87 @@ theme_override_font_sizes/font_size = 30
 text = "2層NN実数演算"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="GraphRect1" type="ColorRect" parent="."]
+offset_left = 20.0
+offset_top = 160.0
+offset_right = 340.0
+offset_bottom = 480.0
+script = ExtResource("5_uv6xk")
+
+[node name="Label" type="Label" parent="GraphRect1"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1st Layer Input"
+horizontal_alignment = 1
+
+[node name="GraphRect2" type="ColorRect" parent="."]
+offset_left = 20.0
+offset_top = 500.0
+offset_right = 340.0
+offset_bottom = 820.0
+script = ExtResource("5_uv6xk")
+
+[node name="Label" type="Label" parent="GraphRect2"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "2nd Layer Input"
+horizontal_alignment = 1
+
+[node name="ResetButton" type="TextureButton" parent="."]
+offset_left = 20.0
+offset_top = 830.0
+offset_right = 68.0
+offset_bottom = 878.0
+texture_normal = ExtResource("6_v7rxe")
+texture_pressed = ExtResource("7_v2uli")
+
+[node name="Label" type="Label" parent="ResetButton"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 54.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Reset"
+horizontal_alignment = 1
+
+[node name="RewindButton" type="TextureButton" parent="."]
+offset_left = 238.0
+offset_top = 830.0
+offset_right = 286.0
+offset_bottom = 878.0
+texture_normal = ExtResource("8_p2hhu")
+texture_pressed = ExtResource("9_wn2w1")
+
+[node name="Label" type="Label" parent="RewindButton"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = 40.0
+offset_right = 65.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Rewind"
+horizontal_alignment = 1
+
+[node name="TrainButton" type="TextureButton" parent="."]
+offset_left = 430.0
+offset_top = 830.0
+offset_right = 478.0
+offset_bottom = 878.0
+texture_normal = ExtResource("10_xsixd")
+texture_pressed = ExtResource("11_qmnly")
+
+[node name="Label" type="Label" parent="TrainButton"]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 54.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Train"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
