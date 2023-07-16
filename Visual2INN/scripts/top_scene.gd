@@ -3,6 +3,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$BeforeButton.disabled = true
 	pass # Replace with function body.
 
 
@@ -23,6 +24,8 @@ func _on_double_layer_button_pressed():
 
 
 func _on_before_button_pressed():
+	$BeforeButton.disabled = true
+	$NextButton.disabled = false
 	var tw = get_tree().create_tween()
 	tw.tween_property($Panels, "position", Vector2(0, 0), 0.5)
 	#$Panels.position = Vector2(0, 0)
@@ -30,6 +33,8 @@ func _on_before_button_pressed():
 
 
 func _on_next_button_pressed():
+	$BeforeButton.disabled = false
+	$NextButton.disabled = true
 	var tw = get_tree().create_tween()
 	tw.tween_property($Panels, "position", Vector2(-500, 0), 0.5)
 	#$Panels.position = Vector2(500, 0)
