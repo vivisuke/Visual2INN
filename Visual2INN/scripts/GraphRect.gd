@@ -37,6 +37,7 @@ const DOT_RADIUS = 4.0
 
 var to_draw_div_lines = true
 var to_plot_boolean = true
+var false_0 = true							# else for false: -1.0
 var dispersion = DSP_001					# 重み分散、0.01 | Xavier | He
 var distribution = UNIFORM_DISTRIBUTION		# 分布
 var maxv = 2.0								# グラフ範囲
@@ -130,9 +131,10 @@ func plot_boolean_sub(pos:Vector2):
 	elif ope == OP_XOR: b = 1.0 if pos.x != pos.y else 0.0					# XOR
 	#var col = Color.BLACK if b else Color.DARK_GRAY
 	#draw_circle(posToScreenPos(pos), 4.0, col)
-	if actv_func != AF_SIGMOID:
-		if pos.x == 0: pos.x = -1
-		if pos.y == 0: pos.y = -1
+	##if actv_func != AF_SIGMOID:
+	if !false_0:	# false: -1.0 の場合
+		if pos.x == 0: pos.x = -1.0
+		if pos.y == 0: pos.y = -1.0
 	dot_plot(pos, b)
 func plot_boolean():
 	plot_boolean_sub(Vector2(0, 0))

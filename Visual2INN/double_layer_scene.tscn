@@ -268,9 +268,32 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Loss: N/A"
 horizontal_alignment = 2
 
+[node name="FalseValButton" type="OptionButton" parent="."]
+offset_left = 366.0
+offset_top = 120.0
+offset_right = 480.0
+offset_bottom = 151.0
+item_count = 2
+selected = 0
+popup/item_0/text = "0.0"
+popup/item_0/id = 0
+popup/item_1/text = "-1.0"
+popup/item_1/id = 1
+
+[node name="Label" type="Label" parent="FalseValButton"]
+layout_mode = 0
+offset_left = -132.0
+offset_right = -6.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Input false:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="item_selected" from="OpeButton" to="." method="_on_ope_button_item_selected"]
 [connection signal="item_selected" from="ActvFuncButton" to="." method="_on_actv_func_button_item_selected"]
 [connection signal="pressed" from="ResetButton" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="RewindButton" to="." method="_on_rewind_button_pressed"]
 [connection signal="pressed" from="TrainButton" to="." method="_on_train_button_pressed"]
+[connection signal="item_selected" from="FalseValButton" to="." method="_on_false_val_button_item_selected"]

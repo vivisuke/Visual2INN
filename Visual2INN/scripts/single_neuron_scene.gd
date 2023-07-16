@@ -80,6 +80,7 @@ var vec_weight_init			# 重み初期値
 var n_iteration = 0			# 学習回数
 var ope = OP_AND
 var actv_func = AF_SIGMOID
+var false_0 = true			# false for false: -1.0
 var ALPHA = 0.1				# 学習率
 var norm = 0.1				# 重み初期化時標準偏差
 var neuron
@@ -109,6 +110,7 @@ func teacher_value(inp:Array):
 func teacher_value_ex(inp:Array):
 	var t = teacher_value(inp)
 	if actv_func != AF_SIGMOID && t == 0.0: t = -1.0
+	#if !false_0 && t == 0.0: t = -1.0
 	return t
 func forward_and_backward():
 	grad = [0.0, 0.0, 0.0]
@@ -117,7 +119,9 @@ func forward_and_backward():
 	for i in range(boolean_pos.size()):
 		n_data += 1
 		var t = teacher_value_ex(boolean_pos[i])	# 教師値
-		var inp = boolean_pos[i] if actv_func == AF_SIGMOID else boolean_pos_tanh[i]
+		#var inp = boolean_pos[i]
+		#var inp = boolean_pos[i] if actv_func == AF_SIGMOID else boolean_pos_tanh[i]
+		var inp = boolean_pos[i] if false_0 else boolean_pos_tanh[i]
 		neuron.forward(inp)
 		var y = neuron.y
 		if actv_func == AF_RELU:
@@ -183,4 +187,12 @@ func _on_actv_func_button_item_selected(index):
 func _on_learn_rate_text_changed(new_text):
 	ALPHA = float(new_text)
 	$LearnRate.text = "%.3f" % ALPHA
+	pass # Replace with function body.
+
+
+func _on_false_val_button_item_selected(index):
+	false_0 = index == 0
+	$GraphRect.false_0 = false_0
+	forward_and_backward()
+	update_view()
 	pass # Replace with function body.
