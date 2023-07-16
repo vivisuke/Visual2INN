@@ -4,7 +4,9 @@ extends TextureButton
 const NODE_RADIUS = 25.0
 const Y_LINE = 40
 const LR_SPC = 30
-const TB_SPC = 60
+#const TB_SPC = 60
+const TOP_SPC = 60
+const BTM_SPC = 30
 var X_INPUT = 70
 var X_ACT = 175
 var X_INPUT_2 = 175
@@ -51,9 +53,10 @@ func _ready():
 	X_WEIGHT = (X_INPUT + X_ACT) / 2.0
 	X_AF = (X_ACT + X_OUTPUT) / 2.0
 	#
-	Y_1 = TB_SPC + NODE_RADIUS
-	Y_X1 = r_height / 2.0
-	Y_X2 = r_height - (TB_SPC + NODE_RADIUS)
+	Y_1 = TOP_SPC + NODE_RADIUS
+	#Y_X1 = r_height / 2.0
+	Y_X2 = r_height - (BTM_SPC + NODE_RADIUS)
+	Y_X1 = (Y_1 + Y_X2) / 2.0
 	#
 	#add_label(Vector2(X_WEIGHT, Y_X1-10-45), "*b")
 	#add_label(Vector2(X_WEIGHT, Y_X1-10), "*w1")

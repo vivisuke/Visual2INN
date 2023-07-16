@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dn10wrshov6hp"]
+[gd_scene load_steps=9 format=3 uid="uid://dn10wrshov6hp"]
 
 [ext_resource type="Script" path="res://scripts/top_scene.gd" id="1_hfqae"]
 [ext_resource type="Script" path="res://scripts/SingleNueronButton.gd" id="1_iorm7"]
 [ext_resource type="Script" path="res://scripts/DoubleNueronButton.gd" id="3_jxh1d"]
+[ext_resource type="Texture2D" uid="uid://t2bon6ry2gu0" path="res://images/navigate_before_black.png" id="4_8s2pt"]
+[ext_resource type="Texture2D" uid="uid://dc55qtaonksv1" path="res://images/navigate_before_gray.png" id="5_ridjo"]
+[ext_resource type="Texture2D" uid="uid://oudp4kundjkp" path="res://images/navigate_next_black.png" id="6_5yrya"]
+[ext_resource type="Texture2D" uid="uid://d3uqwb68mrqux" path="res://images/navigate_next_gray.png" id="7_g1lsu"]
 
 [sub_resource type="Theme" id="Theme_a44im"]
 
@@ -32,43 +36,103 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "ver 0.001"
 horizontal_alignment = 1
 
-[node name="SingleNueronButton" type="TextureButton" parent="."]
+[node name="Panels" type="Node2D" parent="."]
+
+[node name="SingleNueronButton" type="TextureButton" parent="Panels"]
 offset_left = 20.0
 offset_top = 80.0
 offset_right = 480.0
-offset_bottom = 460.0
+offset_bottom = 430.0
 theme = SubResource("Theme_a44im")
 script = ExtResource("1_iorm7")
 
-[node name="Label" type="Label" parent="SingleNueronButton"]
+[node name="Label" type="Label" parent="Panels/SingleNueronButton"]
 layout_mode = 0
 offset_left = 230.0
-offset_top = 350.0
+offset_top = 320.0
 offset_right = 454.0
-offset_bottom = 376.0
+offset_bottom = 346.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "単一ニューロン論理演算"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="DoubleLayerButton" type="TextureButton" parent="."]
+[node name="DoubleLayerButton" type="TextureButton" parent="Panels"]
 offset_left = 20.0
-offset_top = 480.0
+offset_top = 450.0
 offset_right = 480.0
-offset_bottom = 860.0
+offset_bottom = 800.0
 theme = SubResource("Theme_a44im")
 script = ExtResource("3_jxh1d")
 
-[node name="Label" type="Label" parent="DoubleLayerButton"]
+[node name="Label" type="Label" parent="Panels/DoubleLayerButton"]
 layout_mode = 0
 offset_left = 230.0
-offset_top = 350.0
+offset_top = 320.0
 offset_right = 454.0
-offset_bottom = 376.0
+offset_bottom = 346.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "2層NN論理演算"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[connection signal="pressed" from="SingleNueronButton" to="." method="_on_single_nueron_button_pressed"]
-[connection signal="pressed" from="DoubleLayerButton" to="." method="_on_double_layer_button_pressed"]
+[node name="DoubleLayerRealButton" type="TextureButton" parent="Panels"]
+offset_left = 520.0
+offset_top = 450.0
+offset_right = 980.0
+offset_bottom = 800.0
+theme = SubResource("Theme_a44im")
+script = ExtResource("3_jxh1d")
+
+[node name="Label" type="Label" parent="Panels/DoubleLayerRealButton"]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 320.0
+offset_right = 454.0
+offset_bottom = 346.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "2層NN実数演算"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="BeforeButton" type="TextureButton" parent="."]
+offset_left = 20.0
+offset_top = 820.0
+offset_right = 68.0
+offset_bottom = 868.0
+texture_normal = ExtResource("4_8s2pt")
+texture_pressed = ExtResource("5_ridjo")
+texture_disabled = ExtResource("5_ridjo")
+
+[node name="Label" type="Label" parent="BeforeButton"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 54.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Before"
+horizontal_alignment = 1
+
+[node name="NextButton" type="TextureButton" parent="."]
+offset_left = 433.0
+offset_top = 820.0
+offset_right = 481.0
+offset_bottom = 868.0
+texture_normal = ExtResource("6_5yrya")
+texture_pressed = ExtResource("7_g1lsu")
+texture_disabled = ExtResource("7_g1lsu")
+
+[node name="Label" type="Label" parent="NextButton"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 54.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Next"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Panels/SingleNueronButton" to="." method="_on_single_nueron_button_pressed"]
+[connection signal="pressed" from="Panels/DoubleLayerButton" to="." method="_on_double_layer_button_pressed"]
+[connection signal="pressed" from="Panels/DoubleLayerRealButton" to="." method="_on_double_layer_real_button_pressed"]
+[connection signal="pressed" from="BeforeButton" to="." method="_on_before_button_pressed"]
+[connection signal="pressed" from="NextButton" to="." method="_on_next_button_pressed"]
