@@ -126,4 +126,75 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Train"
 horizontal_alignment = 1
 
+[node name="ItrLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 105.0
+offset_bottom = 76.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Iteration: 0"
+
+[node name="Weight11Label" type="Label" parent="."]
+offset_left = 352.0
+offset_top = 160.0
+offset_right = 500.0
+offset_bottom = 212.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2] = 
+    [0, 0, 0]"
+
+[node name="Grad11Label" type="Label" parent="."]
+offset_left = 352.0
+offset_top = 212.0
+offset_right = 500.0
+offset_bottom = 264.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2] =
+    [0, 0, 0]"
+
+[node name="Weight12Label" type="Label" parent="."]
+offset_left = 352.0
+offset_top = 264.0
+offset_right = 500.0
+offset_bottom = 316.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2] = 
+    [0, 0, 0]"
+
+[node name="Grad12Label" type="Label" parent="."]
+offset_left = 352.0
+offset_top = 316.0
+offset_right = 500.0
+offset_bottom = 368.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2] =
+    [0, 0, 0]"
+
+[node name="Weight2Label" type="Label" parent="."]
+offset_left = 352.0
+offset_top = 500.0
+offset_right = 500.0
+offset_bottom = 552.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2] = 
+    [0, 0, 0]"
+
+[node name="Grad2Label" type="Label" parent="."]
+offset_left = 352.0
+offset_top = 552.0
+offset_right = 500.0
+offset_bottom = 604.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2] =
+    [0, 0, 0]"
+
+[node name="LossLabel" type="Label" parent="."]
+offset_left = 320.0
+offset_top = 795.0
+offset_right = 482.0
+offset_bottom = 821.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Loss: N/A"
+horizontal_alignment = 2
+
 [connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
