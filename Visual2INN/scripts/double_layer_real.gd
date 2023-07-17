@@ -110,7 +110,7 @@ func _ready():
 	vec_inp.resize(N_MINBATCH_DATA)
 	vec_inp_tv.resize(N_MINBATCH_DATA)
 	init_inp()
-	forward_and_backward()
+	#forward_and_backward()
 	update_view()
 	pass # Replace with function body.
 func init_inp():
@@ -191,6 +191,7 @@ func do_train():
 		neuron_11.vec_weight[i] -= grad_11[i] * ALPHA
 		neuron_12.vec_weight[i] -= grad_12[i] * ALPHA
 		neuron_2.vec_weight[i] -= grad_2[i] * ALPHA
+	init_inp()
 	update_view()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

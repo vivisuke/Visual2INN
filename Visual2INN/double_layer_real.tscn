@@ -197,5 +197,75 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Loss: N/A"
 horizontal_alignment = 2
 
+[node name="OpeButton" type="OptionButton" parent="."]
+offset_left = 133.0
+offset_top = 80.0
+offset_right = 259.0
+offset_bottom = 111.0
+item_count = 4
+selected = 0
+popup/item_0/text = "x1>0, x2>0"
+popup/item_0/id = 0
+popup/item_1/text = "x1<0, x2>0"
+popup/item_1/id = 1
+popup/item_2/text = "x1<0, x2<0"
+popup/item_2/id = 2
+popup/item_3/text = "x1>0, X2<0"
+popup/item_3/id = 3
+
+[node name="Label" type="Label" parent="OpeButton"]
+layout_mode = 0
+offset_left = -132.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "tchr func: "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ActvFuncButton" type="OptionButton" parent="."]
+offset_left = 352.0
+offset_top = 80.0
+offset_right = 480.0
+offset_bottom = 111.0
+item_count = 4
+selected = 0
+popup/item_0/text = "Sigmoid"
+popup/item_0/id = 0
+popup/item_1/text = "Tanh"
+popup/item_1/id = 1
+popup/item_2/text = "ReLU"
+popup/item_2/id = 2
+popup/item_3/text = "LeakyReLU"
+popup/item_3/id = 3
+
+[node name="Label" type="Label" parent="ActvFuncButton"]
+layout_mode = 0
+offset_left = -132.0
+offset_right = -6.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Actv-Func:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LearnRate" type="LineEdit" parent="."]
+offset_left = 190.0
+offset_top = 120.0
+offset_right = 257.063
+offset_bottom = 151.0
+text = "0.1"
+alignment = 2
+
+[node name="Label" type="Label" parent="LearnRate"]
+layout_mode = 0
+offset_left = -162.0
+offset_right = -6.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "learning rate:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="item_selected" from="ActvFuncButton" to="." method="_on_actv_func_button_item_selected"]
