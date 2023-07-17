@@ -109,15 +109,17 @@ func _ready():
 	$GraphRect1.maxv = 3.0
 	vec_inp.resize(N_MINBATCH_DATA)
 	vec_inp_tv.resize(N_MINBATCH_DATA)
+	init_inp()
+	forward_and_backward()
+	update_view()
+	pass # Replace with function body.
+func init_inp():
 	for i in range(N_MINBATCH_DATA):
 		vec_inp[i] = [randfn(0.0, 1.0), randfn(0.0, 1.0)]
 		vec_inp_tv[i] = vec_inp[i][0] > 0 && vec_inp[i][1] > 0
 	$GraphRect1.vec_input = vec_inp
 	$GraphRect1.vec_tv = vec_inp_tv
 	$GraphRect1.queue_redraw()
-	forward_and_backward()
-	update_view()
-	pass # Replace with function body.
 func update_view():
 	$ItrLabel.text = "Iteration: %d" % n_iteration
 	$Weight11Label.text = "[b, w1, w2] =\n  [%.2f, %.2f, %.2f]" % neuron_11.vec_weight
@@ -149,13 +151,11 @@ func forward_and_backward():
 	var vec_tv = []
 	var sumLoss = 0.0
 	var n_data = 0		# ミニバッチデータ数カウンタ
-	for i in range(boolean_pos.size()):		# ミニバッチの各データについて
+	for i in range(vec_inp.size()):		# ミニバッチの各データについて
 		n_data += 1
-		var t = teacher_value_ex(boolean_pos[i])	# 教師値
+		var t = 1.0 if vec_inp_tv[i] else -1.0	# 教師値
 		vec_tv.push_back(t)
-		#var inp = boolean_pos[i]
-		#var inp = boolean_pos[i] if actv_func == AF_SIGMOID else boolean_pos_tanh[i]
-		var inp = boolean_pos[i] if false_0 else boolean_pos_tanh[i]
+		var inp = vec_inp[i]
 		neuron_11.forward(inp)
 		neuron_12.forward(inp)
 		var inp2 = [neuron_11.y, neuron_12.y]		# 第２層入力
@@ -206,6 +206,7 @@ func _on_back_button_pressed():
 
 func _on_reset_button_pressed():
 	n_iteration = 0
+	init_inp()
 	neuron_11.init_weight(norm)
 	neuron_12.init_weight(norm)
 	neuron_2.init_weight(norm)
