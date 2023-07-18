@@ -71,6 +71,8 @@ enum {
 	OP_GT,		# x1 > x2
 	OP_XOR,
 	#
+	TF_PP = 0, TF_MP, TF_MM, TF_PM,
+	#
 	LU_MINI_BATCH = 0, LU_ONLINE, LU_RANDOM_8,
 }
 const N_MINBATCH_DATA = 10			# ミニバッチデータ数
@@ -81,6 +83,7 @@ var vec_weight12_init		# 重み初期値
 var vec_weight2_init		# 第２層重み初期値
 var n_iteration = 0			# 学習回数
 var ope = OP_XOR
+var tchr_func = TF_PP		# 教師関数
 var actv_func = AF_SIGMOID
 var false_0 = true			# false for false: -1.0
 var ALPHA = 0.1				# 学習率
@@ -116,7 +119,14 @@ func _ready():
 func init_inp():
 	for i in range(N_MINBATCH_DATA):
 		vec_inp[i] = [randfn(0.0, 1.0), randfn(0.0, 1.0)]
-		vec_inp_tv[i] = vec_inp[i][0] > 0 && vec_inp[i][1] > 0
+		if tchr_func == TF_PP:
+			vec_inp_tv[i] = vec_inp[i][0] > 0 && vec_inp[i][1] > 0
+		elif tchr_func == TF_MP:
+			vec_inp_tv[i] = vec_inp[i][0] < 0 && vec_inp[i][1] > 0
+		elif tchr_func == TF_MM:
+			vec_inp_tv[i] = vec_inp[i][0] < 0 && vec_inp[i][1] < 0
+		elif tchr_func == TF_PM:
+			vec_inp_tv[i] = vec_inp[i][0] > 0 && vec_inp[i][1] < 0
 	$GraphRect1.vec_input = vec_inp
 	$GraphRect1.vec_tv = vec_inp_tv
 	$GraphRect1.queue_redraw()
@@ -235,7 +245,7 @@ func _on_ope_button_item_selected(index):
 	ope = index
 	$GraphRect1.ope = ope
 	#$GraphRect1.queue_redraw()
-	forward_and_backward()
+	#forward_and_backward()
 	update_view()
 	pass # Replace with function body.
 
@@ -247,12 +257,19 @@ func _on_actv_func_button_item_selected(index):
 	neuron_2.actv_func = actv_func
 	$GraphRect1.actv_func = actv_func
 	#$GraphRect1.queue_redraw()
-	forward_and_backward()
+	#forward_and_backward()
 	update_view()
 	pass # Replace with function body.
 func _on_false_val_button_item_selected(index):
 	false_0 = index == 0
 	$GraphRect1.false_0 = false_0
-	forward_and_backward()
+	#forward_and_backward()
+	update_view()
+	pass # Replace with function body.
+
+
+func _on_tchr_func_button_item_selected(index):
+	tchr_func = index
+	init_inp()
 	update_view()
 	pass # Replace with function body.

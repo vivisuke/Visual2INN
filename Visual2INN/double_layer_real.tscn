@@ -197,7 +197,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Loss: N/A"
 horizontal_alignment = 2
 
-[node name="OpeButton" type="OptionButton" parent="."]
+[node name="TchrFuncButton" type="OptionButton" parent="."]
 offset_left = 133.0
 offset_top = 80.0
 offset_right = 259.0
@@ -213,7 +213,7 @@ popup/item_2/id = 2
 popup/item_3/text = "x1>0, X2<0"
 popup/item_3/id = 3
 
-[node name="Label" type="Label" parent="OpeButton"]
+[node name="Label" type="Label" parent="TchrFuncButton"]
 layout_mode = 0
 offset_left = -132.0
 offset_bottom = 31.0
@@ -268,4 +268,5 @@ vertical_alignment = 1
 
 [connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="item_selected" from="TchrFuncButton" to="." method="_on_tchr_func_button_item_selected"]
 [connection signal="item_selected" from="ActvFuncButton" to="." method="_on_actv_func_button_item_selected"]
