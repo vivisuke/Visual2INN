@@ -2,11 +2,11 @@ extends TextureButton
 
 
 const NODE_RADIUS = 25.0
-const Y_LINE = 40
+const Y_LINE = 40+20
 const LR_SPC = 30
 #const TB_SPC = 60
-const TOP_SPC = 60
-const BTM_SPC = 30
+const TOP_SPC = 70
+const BTM_SPC = 20
 var X_INPUT = 70
 var X_ACT = 175
 var X_INPUT_2 = 175

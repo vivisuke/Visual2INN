@@ -48,32 +48,41 @@ script = ExtResource("1_iorm7")
 
 [node name="Label" type="Label" parent="Panels/SingleNueronButton"]
 layout_mode = 0
-offset_left = 230.0
-offset_top = 320.0
 offset_right = 454.0
-offset_bottom = 346.0
+offset_bottom = 26.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "単一ニューロン論理演算"
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="LossLabel" type="Label" parent="Panels/SingleNueronButton"]
 layout_mode = 0
 offset_left = 230.0
-offset_top = 290.0
+offset_top = 295.0
 offset_right = 454.0
-offset_bottom = 316.0
+offset_bottom = 321.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Loss = 1/2*∑(y-t)^2"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="TLabel" type="Label" parent="Panels/SingleNueronButton"]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 320.0
+offset_right = 454.0
+offset_bottom = 346.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "※ t: teacher value"
 horizontal_alignment = 2
 vertical_alignment = 2
 
 [node name="YLabel" type="Label" parent="Panels/SingleNueronButton"]
 layout_mode = 0
 offset_left = 230.0
-offset_top = 260.0
+offset_top = 270.0
 offset_right = 454.0
-offset_bottom = 286.0
+offset_bottom = 296.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "y = h(a)"
 horizontal_alignment = 2
@@ -82,9 +91,9 @@ vertical_alignment = 2
 [node name="ALabel" type="Label" parent="Panels/SingleNueronButton"]
 layout_mode = 0
 offset_left = 230.0
-offset_top = 230.0
+offset_top = 245.0
 offset_right = 454.0
-offset_bottom = 256.0
+offset_bottom = 271.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "a = b + w1*x1 + w2*x2"
 horizontal_alignment = 2
@@ -100,13 +109,11 @@ script = ExtResource("3_jxh1d")
 
 [node name="Label" type="Label" parent="Panels/DoubleLayerButton"]
 layout_mode = 0
-offset_left = 230.0
-offset_top = 320.0
 offset_right = 454.0
-offset_bottom = 346.0
+offset_bottom = 26.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "2層NN論理演算"
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="DoubleLayerRealButton" type="TextureButton" parent="Panels"]
@@ -119,13 +126,11 @@ script = ExtResource("3_jxh1d")
 
 [node name="Label" type="Label" parent="Panels/DoubleLayerRealButton"]
 layout_mode = 0
-offset_left = 230.0
-offset_top = 320.0
 offset_right = 454.0
-offset_bottom = 346.0
+offset_bottom = 26.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "2層NN実数演算"
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="BeforeButton" type="TextureButton" parent="."]
