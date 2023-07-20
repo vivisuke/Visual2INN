@@ -1,6 +1,5 @@
 extends TextureButton
 
-
 const NODE_RADIUS = 25.0
 const Y_LINE = 40+20
 const LR_SPC = 30

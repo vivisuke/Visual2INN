@@ -229,6 +229,13 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Train"
 horizontal_alignment = 1
 
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 20.0
+offset_top = 700.0
+offset_right = 120.0
+offset_bottom = 800.0
+color = Color(0.501961, 0.501961, 0.501961, 1)
+
 [connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="item_selected" from="OpeButton" to="." method="_on_ope_button_item_selected"]
 [connection signal="item_selected" from="ActvFuncButton" to="." method="_on_actv_func_button_item_selected"]
