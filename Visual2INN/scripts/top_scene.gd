@@ -50,3 +50,8 @@ func _on_double_layer_real_button_pressed():
 	print("double_layer_real_button_pressed()")
 	get_tree().change_scene_to_file("res://double_layer_real.tscn")
 	pass # Replace with function body.
+
+
+func _on_softmax_button_pressed():
+	get_tree().change_scene_to_file("res://softmax_scene.tscn")
+	pass # Replace with function body.
