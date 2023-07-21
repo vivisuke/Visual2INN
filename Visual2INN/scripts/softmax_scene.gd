@@ -70,8 +70,28 @@ class Neuron:
 	var y					# y = af(a)
 	var upgrad				# 上流勾配
 #
+class Softmax:
+	func _init(ninp):
+		n_input = ninp
+	func forward(inp: Array):
+		vec_output.resize(n_input)
+		var mxv = inp.max()
+		var sum = 0.0
+		for i in range(n_input):
+			var e = exp(inp[i]) - mxv)
+			sum += e
+			vec_output[i] = e
+		for i in range(n_input):
+			vec_output[i] /= sum
+	var n_input				# 入力次元数
+	var vec_output = []
+#
+var neuron = [0, 0]
+var softmax
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#neuron[0] = 
+	softmax = Softmax.new(2)
 	pass # Replace with function body.
 
 
