@@ -1,3 +1,139 @@
-[gd_scene format=3 uid="uid://dv5yht660hqf6"]
+[gd_scene load_steps=12 format=3 uid="uid://dv5yht660hqf6"]
+
+[ext_resource type="Script" path="res://scripts/softmax_scene.gd" id="1_q8cq4"]
+[ext_resource type="Script" path="res://scripts/TitleBar.gd" id="2_bidlq"]
+[ext_resource type="Texture2D" uid="uid://bukgrrvcqvv37" path="res://images/leftward_black.png" id="3_faces"]
+[ext_resource type="Texture2D" uid="uid://b5bjn1p1s6rml" path="res://images/leftward_gray.png" id="4_whsj3"]
+[ext_resource type="Script" path="res://scripts/GraphRect.gd" id="5_fs242"]
+[ext_resource type="Texture2D" uid="uid://cxdyva45dvh5k" path="res://images/refresh_black.png" id="6_d4j5d"]
+[ext_resource type="Texture2D" uid="uid://bdweaw2al2omp" path="res://images/refresh_gray.png" id="7_f2ylu"]
+[ext_resource type="Texture2D" uid="uid://c0jn1uo51xqp7" path="res://images/first_page_black.png" id="8_cdnm5"]
+[ext_resource type="Texture2D" uid="uid://dypwiooquumj1" path="res://images/first_page_gray.png" id="9_4ege2"]
+[ext_resource type="Texture2D" uid="uid://kmt3c2kn8v5t" path="res://images/play_arrow_black.png" id="10_cx1e1"]
+[ext_resource type="Texture2D" uid="uid://bwu5cabap8j01" path="res://images/play_arrow_gray.png" id="11_yka50"]
 
 [node name="SoftmaxScene" type="Node2D"]
+script = ExtResource("1_q8cq4")
+
+[node name="BG" type="ColorRect" parent="."]
+offset_top = -1.0
+offset_right = 500.0
+offset_bottom = 899.0
+color = Color(0.941176, 0.941176, 0.941176, 1)
+
+[node name="TitleBar" type="ColorRect" parent="."]
+offset_right = 500.0
+offset_bottom = 48.0
+script = ExtResource("2_bidlq")
+
+[node name="BackButton" type="TextureButton" parent="TitleBar"]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+texture_normal = ExtResource("3_faces")
+texture_pressed = ExtResource("4_whsj3")
+
+[node name="TitleLabel" type="Label" parent="TitleBar"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 495.0
+offset_bottom = 48.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "単層Softmax"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GraphRect" type="ColorRect" parent="."]
+offset_left = 20.0
+offset_top = 160.0
+offset_right = 480.0
+offset_bottom = 620.0
+script = ExtResource("5_fs242")
+
+[node name="ResetButton" type="TextureButton" parent="."]
+offset_left = 20.0
+offset_top = 820.0
+offset_right = 68.0
+offset_bottom = 868.0
+texture_normal = ExtResource("6_d4j5d")
+texture_pressed = ExtResource("7_f2ylu")
+
+[node name="Label" type="Label" parent="ResetButton"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 54.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Reset"
+horizontal_alignment = 1
+
+[node name="RewindButton" type="TextureButton" parent="."]
+offset_left = 238.0
+offset_top = 820.0
+offset_right = 286.0
+offset_bottom = 868.0
+texture_normal = ExtResource("8_cdnm5")
+texture_pressed = ExtResource("9_4ege2")
+
+[node name="Label" type="Label" parent="RewindButton"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = 48.0
+offset_right = 65.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Rewind"
+horizontal_alignment = 1
+
+[node name="TrainButton" type="TextureButton" parent="."]
+offset_left = 430.0
+offset_top = 820.0
+offset_right = 478.0
+offset_bottom = 868.0
+texture_normal = ExtResource("10_cx1e1")
+texture_pressed = ExtResource("11_yka50")
+
+[node name="Label" type="Label" parent="TrainButton"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 54.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Train"
+horizontal_alignment = 1
+
+[node name="ItrLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 105.0
+offset_bottom = 76.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Iteration: 0"
+
+[node name="WeightLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 630.0
+offset_right = 175.0
+offset_bottom = 656.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2] = [0, 0, 0]"
+
+[node name="GradLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 660.0
+offset_right = 208.0
+offset_bottom = 686.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2] = [0, 0, 0]"
+
+[node name="LossLabel" type="Label" parent="."]
+offset_left = 318.0
+offset_top = 630.0
+offset_right = 480.0
+offset_bottom = 656.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Loss: N/A"
+horizontal_alignment = 2
+
+[connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
