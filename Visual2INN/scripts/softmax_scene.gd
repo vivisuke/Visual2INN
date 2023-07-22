@@ -45,7 +45,7 @@ class Neuron:
 		elif actv_func == AF_SIGMOID: y = sigmoid(a)
 		elif actv_func == AF_RELU: y = ReLU(a)
 		elif actv_func == AF_LEAKY_RELU: y = LeakyReLU(a)
-		else y = a		# 恒等関数
+		else: y = a		# 恒等関数
 		#print("a = ", a, ", y = ", y)
 	func backward(inp: Array, grad: float):
 		upgrad = []		# 上流勾配
@@ -56,7 +56,7 @@ class Neuron:
 			#if y <= 0: dyda = 0.0
 			#else: dyda = 1.0
 		elif actv_func == AF_LEAKY_RELU: dyda = (0.01 if y <= 0 else 1.0)		# Leaky ReLU
-		else dyda = 1.0		# 恒等関数
+		else: dyda = 1.0		# 恒等関数
 		var dydag = dyda * grad
 		upgrad.push_back(dydag)		# for b
 		#print("∂L/∂y = ", grad)
@@ -78,7 +78,7 @@ class Softmax:
 		var mxv = inp.max()
 		var sum = 0.0
 		for i in range(n_input):
-			var e = exp(inp[i]) - mxv)
+			var e = exp(inp[i] - mxv)
 			sum += e
 			vec_output[i] = e
 		for i in range(n_input):
@@ -88,12 +88,18 @@ class Softmax:
 #
 var neuron = [0, 0]
 var softmax
+var norm = 0.1				# 重み初期化時標準偏差
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#neuron[0] = 
+	neuron[0] = Neuron.new(2, AF_NONE, norm)
+	neuron[1] = Neuron.new(2, AF_NONE, norm)
 	softmax = Softmax.new(2)
+	update_view()
 	pass # Replace with function body.
 
+func update_view():
+	$GraphRect.vv_weight = [neuron[0].vec_weight, neuron[1].vec_weight]
+	$GraphRect.queue_redraw()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
