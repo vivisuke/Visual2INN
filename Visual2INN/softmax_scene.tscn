@@ -111,7 +111,7 @@ offset_bottom = 76.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Iteration: 0"
 
-[node name="WeightLabel" type="Label" parent="."]
+[node name="WeightLabel_1" type="Label" parent="."]
 offset_left = 20.0
 offset_top = 630.0
 offset_right = 175.0
@@ -119,11 +119,27 @@ offset_bottom = 656.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "[b, w1, w2] = [0, 0, 0]"
 
-[node name="GradLabel" type="Label" parent="."]
+[node name="GradLabel_1" type="Label" parent="."]
 offset_left = 20.0
 offset_top = 660.0
 offset_right = 208.0
 offset_bottom = 686.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2] = [0, 0, 0]"
+
+[node name="WeightLabel_2" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 686.0
+offset_right = 175.0
+offset_bottom = 712.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2] = [0, 0, 0]"
+
+[node name="GradLabel_2" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 716.0
+offset_right = 208.0
+offset_bottom = 742.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "∂L/∂[b, w1, w2] = [0, 0, 0]"
 

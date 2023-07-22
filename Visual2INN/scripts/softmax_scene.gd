@@ -86,6 +86,7 @@ class Softmax:
 	var n_input				# 入力次元数
 	var vec_output = []
 #
+var n_iteration = 0
 var neuron = [0, 0]
 var softmax
 var norm = 0.1				# 重み初期化時標準偏差
@@ -98,6 +99,9 @@ func _ready():
 	pass # Replace with function body.
 
 func update_view():
+	$ItrLabel.text = "Iteration: %d" % n_iteration
+	$WeightLabel_1.text = "[b, w1, w2] = [%.2f, %.2f, %.2f]" % neuron[0].vec_weight
+	$WeightLabel_2.text = "[b, w1, w2] = [%.2f, %.2f, %.2f]" % neuron[1].vec_weight
 	$GraphRect.vv_weight = [neuron[0].vec_weight, neuron[1].vec_weight]
 	$GraphRect.queue_redraw()
 
