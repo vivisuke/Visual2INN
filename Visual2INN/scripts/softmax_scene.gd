@@ -86,18 +86,42 @@ class Softmax:
 	var n_input				# 入力次元数
 	var vec_output = []
 #
+const N_MINBATCH_DATA = 10			# ミニバッチデータ数
+
 var n_iteration = 0
 var neuron = [0, 0]
 var softmax
 var norm = 0.1				# 重み初期化時標準偏差
+var vec_inp = []			# 入力データ*10セット
+var vec_inp_tv = []			# 各入力データに対する教師値 true/false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	neuron[0] = Neuron.new(2, AF_NONE, norm)
 	neuron[1] = Neuron.new(2, AF_NONE, norm)
 	softmax = Softmax.new(2)
+	vec_inp.resize(N_MINBATCH_DATA)
+	vec_inp_tv.resize(N_MINBATCH_DATA)
+	$GraphRect.maxv = 3.0
+	init_inp()
 	update_view()
 	pass # Replace with function body.
 
+func init_inp():
+	for i in range(N_MINBATCH_DATA):
+		vec_inp[i] = [randfn(0.0, 1.0), randfn(0.0, 1.0)]
+		#if tchr_func == TF_PP:
+		#	vec_inp_tv[i] = vec_inp[i][0] > 0 && vec_inp[i][1] > 0
+		#elif tchr_func == TF_MP:
+		#	vec_inp_tv[i] = vec_inp[i][0] < 0 && vec_inp[i][1] > 0
+		#elif tchr_func == TF_MM:
+		#	vec_inp_tv[i] = vec_inp[i][0] < 0 && vec_inp[i][1] < 0
+		#elif tchr_func == TF_PM:
+		#	vec_inp_tv[i] = vec_inp[i][0] > 0 && vec_inp[i][1] < 0
+		vec_inp_tv[i] = vec_inp[i][0] + vec_inp[i][1] > 0.5
+	$GraphRect.vec_input = vec_inp
+	$GraphRect.vec_tv = vec_inp_tv
+	$GraphRect.queue_redraw()
 func update_view():
 	$ItrLabel.text = "Iteration: %d" % n_iteration
 	$WeightLabel_1.text = "[b, w1, w2] = [%.2f, %.2f, %.2f]" % neuron[0].vec_weight
