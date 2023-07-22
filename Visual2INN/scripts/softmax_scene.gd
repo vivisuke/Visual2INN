@@ -89,16 +89,20 @@ class Softmax:
 const N_MINBATCH_DATA = 10			# ミニバッチデータ数
 
 var n_iteration = 0
-var neuron = [0, 0]
+#var neuron = [0, 0]
+var neuron_1
+var neuron_2
 var softmax
 var norm = 0.1				# 重み初期化時標準偏差
 var vec_inp = []			# 入力データ*10セット
 var vec_inp_tv = []			# 各入力データに対する教師値 true/false
+var grad_1
+var grad_2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	neuron[0] = Neuron.new(2, AF_NONE, norm)
-	neuron[1] = Neuron.new(2, AF_NONE, norm)
+	neuron_1 = Neuron.new(2, AF_NONE, norm)
+	neuron_2 = Neuron.new(2, AF_NONE, norm)
 	softmax = Softmax.new(2)
 	vec_inp.resize(N_MINBATCH_DATA)
 	vec_inp_tv.resize(N_MINBATCH_DATA)
@@ -124,10 +128,37 @@ func init_inp():
 	$GraphRect.queue_redraw()
 func update_view():
 	$ItrLabel.text = "Iteration: %d" % n_iteration
-	$WeightLabel_1.text = "[b, w1, w2] = [%.2f, %.2f, %.2f]" % neuron[0].vec_weight
-	$WeightLabel_2.text = "[b, w1, w2] = [%.2f, %.2f, %.2f]" % neuron[1].vec_weight
-	$GraphRect.vv_weight = [neuron[0].vec_weight, neuron[1].vec_weight]
+	$WeightLabel_1.text = "[b, w1, w2] = [%.2f, %.2f, %.2f]" % neuron_1.vec_weight
+	$WeightLabel_2.text = "[b, w1, w2] = [%.2f, %.2f, %.2f]" % neuron_2.vec_weight
+	$GraphRect.vv_weight = [neuron_1.vec_weight, neuron_2.vec_weight]
 	$GraphRect.queue_redraw()
+	forward_and_backward()
+func forward_and_backward():
+	grad_1 = [0.0, 0.0, 0.0]
+	grad_2 = [0.0, 0.0, 0.0]
+	var sumLoss = 0.0
+	var n_data = 0		# ミニバッチデータ数カウンタ
+	for i in range(vec_inp.size()):		# ミニバッチの各データについて
+		n_data += 1
+		var t1 = 1.0 if vec_inp_tv[i] else 0.0
+		var t2 = 1.0 if !vec_inp_tv[i] else 0.0	# 教師値
+		var inp = vec_inp[i]
+		neuron_1.forward(inp)
+		neuron_2.forward(inp)
+		softmax.forward([neuron_1.y, neuron_2.y])
+		sumLoss += t1 * log(softmax.vec_output[0])
+		sumLoss += t2 * log(softmax.vec_output[1])
+		#
+		neuron_1.backward(inp, neuron_1.y - t1)
+		for k in range(grad_1.size()):
+			grad_1[k] += neuron_1.upgrad[k]
+		neuron_2.backward(inp, neuron_2.y - t2)
+		for k in range(grad_2.size()):
+			grad_2[k] += neuron_2.upgrad[k]
+	var loss = -sumLoss
+	$LossLabel.text = "Loss = %.3f" % loss
+	$GradLabel_1.text = "∂L/∂[b, w1, w2] = [%.2f, %.2f, %.2f]" % grad_1
+	$GradLabel_2.text = "∂L/∂[b, w1, w2] = [%.2f, %.2f, %.2f]" % grad_2
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
