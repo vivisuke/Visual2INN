@@ -96,6 +96,8 @@ var softmax
 var norm = 0.1				# 重み初期化時標準偏差
 var vec_inp = []			# 入力データ*10セット
 var vec_inp_tv = []			# 各入力データに対する教師値 true/false
+var vec_weight1_init		# 重み初期値
+var vec_weight2_init		# 重み初期値
 var grad_1
 var grad_2
 
@@ -167,4 +169,15 @@ func _process(delta):
 
 func _on_back_button_pressed():
 	get_tree().change_scene_to_file("res://top_scene.tscn")
+	pass # Replace with function body.
+
+
+func _on_reset_button_pressed():
+	n_iteration = 0
+	init_inp()
+	neuron_1.init_weight(norm)
+	neuron_2.init_weight(norm)
+	vec_weight1_init = neuron_1.vec_weight.duplicate()
+	vec_weight2_init = neuron_2.vec_weight.duplicate()
+	update_view()
 	pass # Replace with function body.
