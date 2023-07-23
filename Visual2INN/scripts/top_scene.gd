@@ -1,13 +1,19 @@
 extends Node2D
 
 const SCREEN_WD = 500
+const N_PAGE = 3			# ページ数
+
+#var page = 0				# ページインデックス [0, N_PAGE)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Panels.position = Vector2(-SCREEN_WD*g.page, 0)
-	$BeforeButton.disabled = g.page == 0
-	$NextButton.disabled = g.page == 1
+	disable_befor_next_button()
 	pass # Replace with function body.
+
+func disable_befor_next_button():
+	$BeforeButton.disabled = g.page == 0
+	$NextButton.disabled = g.page == N_PAGE - 1
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,20 +34,18 @@ func _on_double_layer_button_pressed():
 
 func _on_before_button_pressed():
 	g.page -= 1
-	$BeforeButton.disabled = true
-	$NextButton.disabled = false
+	disable_befor_next_button()
 	var tw = get_tree().create_tween()
-	tw.tween_property($Panels, "position", Vector2(0, 0), 0.5)
+	tw.tween_property($Panels, "position", Vector2(-SCREEN_WD*g.page, 0), 0.5)
 	#$Panels.position = Vector2(0, 0)
 	pass # Replace with function body.
 
 
 func _on_next_button_pressed():
 	g.page += 1
-	$BeforeButton.disabled = false
-	$NextButton.disabled = true
+	disable_befor_next_button()
 	var tw = get_tree().create_tween()
-	tw.tween_property($Panels, "position", Vector2(-SCREEN_WD, 0), 0.5)
+	tw.tween_property($Panels, "position", Vector2(-SCREEN_WD*g.page, 0), 0.5)
 	#$Panels.position = Vector2(SCREEN_WD, 0)
 	pass # Replace with function body.
 
