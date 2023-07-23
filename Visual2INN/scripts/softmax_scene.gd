@@ -87,12 +87,14 @@ class Softmax:
 	var vec_output = []
 #
 const N_MINBATCH_DATA = 10			# ミニバッチデータ数
+#const N_MINBATCH_DATA = 2			# ミニバッチデータ数
 
 var n_iteration = 0
 #var neuron = [0, 0]
 var neuron_1
 var neuron_2
 var softmax
+var ALPHA = 0.1				# 学習率
 var norm = 0.1				# 重み初期化時標準偏差
 var vec_inp = []			# 入力データ*10セット
 var vec_inp_tv = []			# 各入力データに対する教師値 true/false
@@ -114,17 +116,21 @@ func _ready():
 	pass # Replace with function body.
 
 func init_inp():
-	for i in range(N_MINBATCH_DATA):
-		vec_inp[i] = [randfn(0.0, 1.0), randfn(0.0, 1.0)]
-		#if tchr_func == TF_PP:
-		#	vec_inp_tv[i] = vec_inp[i][0] > 0 && vec_inp[i][1] > 0
-		#elif tchr_func == TF_MP:
-		#	vec_inp_tv[i] = vec_inp[i][0] < 0 && vec_inp[i][1] > 0
-		#elif tchr_func == TF_MM:
-		#	vec_inp_tv[i] = vec_inp[i][0] < 0 && vec_inp[i][1] < 0
-		#elif tchr_func == TF_PM:
-		#	vec_inp_tv[i] = vec_inp[i][0] > 0 && vec_inp[i][1] < 0
-		vec_inp_tv[i] = vec_inp[i][0] + vec_inp[i][1] > 0.5
+	if true:
+		for i in range(N_MINBATCH_DATA):
+			vec_inp[i] = [randfn(0.0, 1.0), randfn(0.0, 1.0)]
+		##	#if tchr_func == TF_PP:
+		##	#	vec_inp_tv[i] = vec_inp[i][0] > 0 && vec_inp[i][1] > 0
+		##	#elif tchr_func == TF_MP:
+		##	#	vec_inp_tv[i] = vec_inp[i][0] < 0 && vec_inp[i][1] > 0
+		##	#elif tchr_func == TF_MM:
+		##	#	vec_inp_tv[i] = vec_inp[i][0] < 0 && vec_inp[i][1] < 0
+		##	#elif tchr_func == TF_PM:
+		##	#	vec_inp_tv[i] = vec_inp[i][0] > 0 && vec_inp[i][1] < 0
+			vec_inp_tv[i] = vec_inp[i][0] + vec_inp[i][1] > 0.5
+	else:
+		vec_inp = [[1.0, 1.0], [-1.0, -1.0]]
+		vec_inp_tv = [true, false]
 	$GraphRect.vec_input = vec_inp
 	$GraphRect.vec_tv = vec_inp_tv
 	$GraphRect.queue_redraw()
@@ -147,14 +153,16 @@ func forward_and_backward():
 		var inp = vec_inp[i]
 		neuron_1.forward(inp)
 		neuron_2.forward(inp)
+		print("a1, a2 = %.3f, %.3f" % [neuron_1.y, neuron_2.y])
 		softmax.forward([neuron_1.y, neuron_2.y])
+		print("P1, P2 = %.3f, %.3f" % softmax.vec_output)
 		sumLoss += t1 * log(softmax.vec_output[0])
 		sumLoss += t2 * log(softmax.vec_output[1])
 		#
-		neuron_1.backward(inp, neuron_1.y - t1)
+		neuron_1.backward(inp, softmax.vec_output[0] - t1)
 		for k in range(grad_1.size()):
 			grad_1[k] += neuron_1.upgrad[k]
-		neuron_2.backward(inp, neuron_2.y - t2)
+		neuron_2.backward(inp, softmax.vec_output[1] - t2)
 		for k in range(grad_2.size()):
 			grad_2[k] += neuron_2.upgrad[k]
 	var loss = -sumLoss
@@ -162,8 +170,17 @@ func forward_and_backward():
 	$GradLabel_1.text = "∂L/∂[b, w1, w2] = [%.2f, %.2f, %.2f]" % grad_1
 	$GradLabel_2.text = "∂L/∂[b, w1, w2] = [%.2f, %.2f, %.2f]" % grad_2
 
+func do_train():
+	n_iteration += 1
+	for i in range(neuron_1.vec_weight.size()):
+		neuron_1.vec_weight[i] -= grad_1[i] * ALPHA
+		neuron_2.vec_weight[i] -= grad_2[i] * ALPHA
+	init_inp()
+	update_view()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if $TrainButton.button_pressed:
+		do_train()
 	pass
 
 
