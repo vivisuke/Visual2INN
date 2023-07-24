@@ -86,7 +86,9 @@ func _input(event):
 			selected = event.is_pressed()
 			print(event.is_pressed())
 			print(get_local_mouse_position())
-			queue_redraw()
+		else:
+			selected = false
+		queue_redraw()
 	pass
 
 func draw_circle_outline(pos: Vector2, radius, col, txt: String):
