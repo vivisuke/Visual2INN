@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dn10wrshov6hp"]
+[gd_scene load_steps=12 format=3 uid="uid://dn10wrshov6hp"]
 
 [ext_resource type="Script" path="res://scripts/top_scene.gd" id="1_hfqae"]
 [ext_resource type="Script" path="res://scripts/SingleNueronButton.gd" id="1_iorm7"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://oudp4kundjkp" path="res://images/navigate_next_black.png" id="6_5yrya"]
 [ext_resource type="Texture2D" uid="uid://d3uqwb68mrqux" path="res://images/navigate_next_gray.png" id="7_g1lsu"]
 
+[sub_resource type="Theme" id="Theme_2shva"]
+
 [sub_resource type="Theme" id="Theme_a44im"]
 
 [node name="TopScene" type="Node2D"]
@@ -19,6 +21,7 @@ script = ExtResource("1_hfqae")
 offset_top = -1.0
 offset_right = 500.0
 offset_bottom = 899.0
+theme = SubResource("Theme_2shva")
 
 [node name="Title" type="Label" parent="."]
 offset_top = 10.0
