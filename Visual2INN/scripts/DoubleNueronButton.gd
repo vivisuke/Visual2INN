@@ -75,7 +75,7 @@ func _process(delta):
 	pass
 
 func point_in_rect(ctrl: Control, pnt: Vector2) -> bool:
-	var pos = ctrl.position
+	var pos = ctrl.position + get_parent().position
 	var sz = ctrl.size
 	return (pnt.x >= pos.x && pnt.x < pos.x + sz.x &&
 			pnt.y >= pos.y && pnt.y < pos.y + sz.y)
