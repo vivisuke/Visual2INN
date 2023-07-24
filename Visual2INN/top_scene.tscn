@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dn10wrshov6hp"]
+[gd_scene load_steps=11 format=3 uid="uid://dn10wrshov6hp"]
 
 [ext_resource type="Script" path="res://scripts/top_scene.gd" id="1_hfqae"]
 [ext_resource type="Script" path="res://scripts/SingleNueronButton.gd" id="1_iorm7"]
 [ext_resource type="Script" path="res://scripts/DoubleNueronButton.gd" id="3_jxh1d"]
 [ext_resource type="Texture2D" uid="uid://t2bon6ry2gu0" path="res://images/navigate_before_black.png" id="4_8s2pt"]
 [ext_resource type="Script" path="res://scripts/SoftmaxButton.gd" id="4_a1wbu"]
+[ext_resource type="Script" path="res://scripts/FCSoftmaxButton.gd" id="5_3ddqu"]
 [ext_resource type="Texture2D" uid="uid://dc55qtaonksv1" path="res://images/navigate_before_gray.png" id="5_ridjo"]
 [ext_resource type="Texture2D" uid="uid://oudp4kundjkp" path="res://images/navigate_next_black.png" id="6_5yrya"]
 [ext_resource type="Texture2D" uid="uid://d3uqwb68mrqux" path="res://images/navigate_next_gray.png" id="7_g1lsu"]
@@ -134,10 +135,10 @@ horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="SoftmaxButton" type="TextureButton" parent="Panels"]
-offset_left = 520.0
-offset_top = 450.0
-offset_right = 980.0
-offset_bottom = 800.0
+offset_left = 1020.0
+offset_top = 80.0
+offset_right = 1480.0
+offset_bottom = 430.0
 theme = SubResource("Theme_a44im")
 script = ExtResource("4_a1wbu")
 
@@ -147,6 +148,23 @@ offset_right = 454.0
 offset_bottom = 26.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "単層Softmax"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="FCSoftmaxButton" type="TextureButton" parent="Panels"]
+offset_left = 1020.0
+offset_top = 450.0
+offset_right = 1480.0
+offset_bottom = 800.0
+theme = SubResource("Theme_a44im")
+script = ExtResource("5_3ddqu")
+
+[node name="Label" type="Label" parent="Panels/FCSoftmaxButton"]
+layout_mode = 0
+offset_right = 454.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "FC+Softmax"
 horizontal_alignment = 1
 vertical_alignment = 2
 
@@ -190,5 +208,6 @@ horizontal_alignment = 1
 [connection signal="pressed" from="Panels/DoubleLayerButton" to="." method="_on_double_layer_button_pressed"]
 [connection signal="pressed" from="Panels/DoubleLayerRealButton" to="." method="_on_double_layer_real_button_pressed"]
 [connection signal="pressed" from="Panels/SoftmaxButton" to="." method="_on_softmax_button_pressed"]
+[connection signal="pressed" from="Panels/FCSoftmaxButton" to="." method="_on_softmax_button_pressed"]
 [connection signal="pressed" from="BeforeButton" to="." method="_on_before_button_pressed"]
 [connection signal="pressed" from="NextButton" to="." method="_on_next_button_pressed"]
