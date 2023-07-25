@@ -17,4 +17,5 @@ func _draw():
 		#draw_circle(Vector2(x, 100 - (vec_loss[x] - loss0)*10000), 1.0, Color.BLUE)
 		points.push_back(Vector2(x, 100 - (vec_loss[x] - loss0)*10000))
 	draw_polyline(points, Color.BLUE, 1.0)
+	draw_circle(Vector2(50, 100 - (vec_loss[50] - loss0)*10000), 3.0, Color.BLACK)
 	pass
