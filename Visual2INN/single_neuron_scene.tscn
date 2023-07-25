@@ -230,10 +230,38 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Train"
 horizontal_alignment = 1
 
-[node name="W1LossGraph" type="ColorRect" parent="."]
+[node name="BLossGraph" type="ColorRect" parent="."]
 offset_left = 40.0
 offset_top = 690.0
 offset_right = 140.0
+offset_bottom = 790.0
+color = Color(0.878431, 0.878431, 0.878431, 1)
+script = ExtResource("12_g0ntp")
+
+[node name="LossLabel" type="Label" parent="BLossGraph"]
+layout_mode = 0
+offset_left = -24.0
+offset_top = 100.0
+offset_right = 76.0
+offset_bottom = 130.0
+rotation = -1.5708
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Loss"
+horizontal_alignment = 1
+
+[node name="WeightLabel" type="Label" parent="BLossGraph"]
+layout_mode = 0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "bias"
+horizontal_alignment = 1
+
+[node name="W1LossGraph" type="ColorRect" parent="."]
+offset_left = 180.0
+offset_top = 690.0
+offset_right = 280.0
 offset_bottom = 790.0
 color = Color(0.878431, 0.878431, 0.878431, 1)
 script = ExtResource("12_g0ntp")
@@ -256,6 +284,34 @@ offset_right = 100.0
 offset_bottom = 126.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "weight1"
+horizontal_alignment = 1
+
+[node name="W2LossGraph" type="ColorRect" parent="."]
+offset_left = 320.0
+offset_top = 690.0
+offset_right = 420.0
+offset_bottom = 790.0
+color = Color(0.878431, 0.878431, 0.878431, 1)
+script = ExtResource("12_g0ntp")
+
+[node name="LossLabel" type="Label" parent="W2LossGraph"]
+layout_mode = 0
+offset_left = -24.0
+offset_top = 100.0
+offset_right = 76.0
+offset_bottom = 130.0
+rotation = -1.5708
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Loss"
+horizontal_alignment = 1
+
+[node name="WeightLabel" type="Label" parent="W2LossGraph"]
+layout_mode = 0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "weight2"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]

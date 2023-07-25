@@ -10,6 +10,7 @@ func _process(delta):
 	pass
 
 func _draw():
+	if vec_loss.is_empty(): return
 	var loss0 = vec_loss.min()
 	var loss9 = vec_loss.max()
 	var points : PackedVector2Array
