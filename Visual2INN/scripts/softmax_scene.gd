@@ -117,6 +117,18 @@ func _ready():
 
 func init_inp():
 	if true:
+		vec_inp.resize(N_MINBATCH_DATA)
+		vec_inp_tv.resize(N_MINBATCH_DATA)
+		for i in range(N_MINBATCH_DATA):
+			var t : bool = (randi() % 100) < 50
+			vec_inp_tv[i] = t
+			if t:
+				vec_inp[i] = [1.0, -1.0]
+			else:
+				vec_inp[i] = [-1.0, 1.0]
+			vec_inp[i][0] += randfn(0.0, 0.25)
+			vec_inp[i][1] += randfn(0.0, 0.25)
+	elif true:
 		for i in range(N_MINBATCH_DATA):
 			vec_inp[i] = [randfn(0.0, 1.0), randfn(0.0, 1.0)]
 		##	#if tchr_func == TF_PP:

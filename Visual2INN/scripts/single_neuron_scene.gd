@@ -208,6 +208,7 @@ func _on_ope_button_item_selected(index):
 	ope = index
 	$GraphRect.ope = ope
 	$GraphRect.queue_redraw()
+	update_view()
 	pass # Replace with function body.
 
 
