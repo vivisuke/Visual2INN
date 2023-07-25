@@ -58,7 +58,7 @@ func _ready():
 	add_label(Vector2(X_AF, Y_X1-10), "h()")
 	#
 	add_label_raw(Vector2(X_INPUT, Y_LINE-24), "Affine")
-	add_label_raw(Vector2(X_ACT+15, Y_LINE-24), "Actv-Func")
+	add_label_raw(Vector2(X_ACT+15, Y_LINE-24), "Actvation Function")
 	#
 	#queue_redraw()
 	pass # Replace with function body.

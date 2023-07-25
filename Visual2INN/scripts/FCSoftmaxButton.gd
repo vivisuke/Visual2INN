@@ -36,21 +36,27 @@ func _ready():
 	print(self_rect.size)
 	#
 	X_INPUT = LR_SPC + NODE_RADIUS
-	#X_INPUT_2 = r_width / 2.0
-	#X_ACT = (X_INPUT + X_INPUT_2) / 2.0
+	X_INPUT_2 = r_width / 2.0
+	X_ACT = (X_INPUT + X_INPUT_2) / 2.0
 	X_OUTPUT = r_width - (LR_SPC + NODE_RADIUS)
-	X_ACT = X_INPUT + (X_OUTPUT - X_INPUT) / 3.0
-	X_SOFTMAX = X_INPUT + (X_OUTPUT - X_INPUT) * 2.0 / 3.0
-	#X_ACT_2 = (X_INPUT_2 + X_OUTPUT) / 2.0
-	#X_WEIGHT = (X_INPUT + X_ACT) / 2.0
-	#X_AF = (X_ACT + X_OUTPUT) / 2.0
+	X_ACT_2 = (X_INPUT_2 + X_OUTPUT) / 2.0
+	X_WEIGHT = (X_INPUT + X_ACT) / 2.0
+	X_AF = (X_ACT + X_OUTPUT) / 2.0
 	#
 	Y_1 = TOP_SPC + NODE_RADIUS
 	#Y_X1 = r_height / 2.0
 	Y_X2 = r_height - (BTM_SPC + NODE_RADIUS)
 	Y_X1 = (Y_1 + Y_X2) / 2.0
-	Y_P1 = (Y_1 + Y_X1) / 2.0
-	Y_P2 = (Y_X1 + Y_X2) / 2.0
+	#
+	#add_label(Vector2(X_WEIGHT, Y_X1-10-45), "*b")
+	#add_label(Vector2(X_WEIGHT, Y_X1-10), "*w1")
+	#add_label(Vector2(X_WEIGHT, Y_X1-10+45), "*w2")
+	#add_label(Vector2(X_AF, Y_X1-10), "h()")
+	#
+	add_label_raw(Vector2(X_INPUT, Y_LINE-24), "Affine")
+	add_label_raw(Vector2(X_ACT+10, Y_LINE-24), "ActvFunc")
+	add_label_raw(Vector2(X_INPUT_2+20, Y_LINE-24), "Affine")
+	add_label_raw(Vector2(X_ACT_2+20, Y_LINE-24), "Softmax")
 	pass # Replace with function body.
 
 
@@ -101,24 +107,38 @@ func _draw():
 	style_box.shadow_color = Color.GRAY
 	draw_style_box(style_box, Rect2(Vector2(0, 0), self.size))      # style_box に設定した矩形を描画
 	# エッジ
-	draw_line(Vector2(X_INPUT, Y_1), Vector2(X_ACT, Y_P1), Color.DARK_GRAY)
-	draw_line(Vector2(X_INPUT, Y_X1), Vector2(X_ACT, Y_P1), Color.DARK_GRAY)
-	draw_line(Vector2(X_INPUT, Y_X2), Vector2(X_ACT, Y_P1), Color.DARK_GRAY)
-	draw_line(Vector2(X_INPUT, Y_1), Vector2(X_ACT, Y_P2), Color.DARK_GRAY)
-	draw_line(Vector2(X_INPUT, Y_X1), Vector2(X_ACT, Y_P2), Color.DARK_GRAY)
-	draw_line(Vector2(X_INPUT, Y_X2), Vector2(X_ACT, Y_P2), Color.DARK_GRAY)
-	draw_line(Vector2(X_ACT, Y_P1), Vector2(X_OUTPUT, Y_P1), Color.DARK_GRAY)
-	draw_line(Vector2(X_ACT, Y_P2), Vector2(X_OUTPUT, Y_P2), Color.DARK_GRAY)
+	draw_line(Vector2(X_INPUT, Y_1), Vector2(X_ACT, Y_X1), Color.DARK_GRAY)
+	draw_line(Vector2(X_INPUT, Y_X1), Vector2(X_ACT, Y_X1), Color.DARK_GRAY)
+	draw_line(Vector2(X_INPUT, Y_X2), Vector2(X_ACT, Y_X1), Color.DARK_GRAY)
+	draw_line(Vector2(X_INPUT, Y_1), Vector2(X_ACT, Y_X2), Color.DARK_GRAY)
+	draw_line(Vector2(X_INPUT, Y_X1), Vector2(X_ACT, Y_X2), Color.DARK_GRAY)
+	draw_line(Vector2(X_INPUT, Y_X2), Vector2(X_ACT, Y_X2), Color.DARK_GRAY)
+	draw_line(Vector2(X_ACT, Y_X1), Vector2(X_OUTPUT, Y_X1), Color.DARK_GRAY)
+	draw_line(Vector2(X_ACT, Y_X2), Vector2(X_OUTPUT, Y_X2), Color.DARK_GRAY)
+	draw_line(Vector2(X_ACT, Y_X2), Vector2(X_INPUT_2, Y_X2), Color.DARK_GRAY)
+	draw_line(Vector2(X_INPUT_2, Y_1), Vector2(X_ACT_2, Y_X1), Color.DARK_GRAY)
+	draw_line(Vector2(X_INPUT_2, Y_X1), Vector2(X_ACT_2, Y_X1), Color.DARK_GRAY)
+	draw_line(Vector2(X_INPUT_2, Y_X2), Vector2(X_ACT_2, Y_X1), Color.DARK_GRAY)
+	draw_line(Vector2(X_INPUT_2, Y_1), Vector2(X_ACT_2, Y_X2), Color.DARK_GRAY)
+	draw_line(Vector2(X_INPUT_2, Y_X1), Vector2(X_ACT_2, Y_X2), Color.DARK_GRAY)
+	draw_line(Vector2(X_INPUT_2, Y_X2), Vector2(X_ACT_2, Y_X2), Color.DARK_GRAY)
 	# ノード
 	draw_circle_outline(Vector2(X_INPUT, Y_1), NODE_RADIUS, Color("#e0e0e0"), "1")
 	draw_circle_outline(Vector2(X_INPUT, Y_X1), NODE_RADIUS, Color.WHITE, "x1")
 	draw_circle_outline(Vector2(X_INPUT, Y_X2), NODE_RADIUS, Color.WHITE, "x2")
-	draw_circle_outline(Vector2(X_ACT, Y_P1), NODE_RADIUS, Color.WHITE, "a1")
-	draw_circle_outline(Vector2(X_ACT, Y_P2), NODE_RADIUS, Color.WHITE, "a2")
-	#draw_circle_outline(Vector2(X_INPUT_2, Y_1), NODE_RADIUS, Color("#e0e0e0"), "1")
-	#draw_circle_outline(Vector2(X_INPUT_2, Y_X1), NODE_RADIUS, Color.WHITE, "x1")
-	#draw_circle_outline(Vector2(X_INPUT_2, Y_X2), NODE_RADIUS, Color.WHITE, "x2")
-	#draw_circle_outline(Vector2(X_ACT_2, Y_X1), NODE_RADIUS, Color.WHITE, "a")
-	draw_circle_outline(Vector2(X_OUTPUT, Y_P1), NODE_RADIUS, Color.WHITE, "P1")
-	draw_circle_outline(Vector2(X_OUTPUT, Y_P2), NODE_RADIUS, Color.WHITE, "P2")
+	draw_circle_outline(Vector2(X_ACT, Y_X1), NODE_RADIUS, Color.WHITE, "a1")
+	draw_circle_outline(Vector2(X_ACT, Y_X2), NODE_RADIUS, Color.WHITE, "a2")
+	draw_circle_outline(Vector2(X_INPUT_2, Y_1), NODE_RADIUS, Color("#e0e0e0"), "1")
+	draw_circle_outline(Vector2(X_INPUT_2, Y_X1), NODE_RADIUS, Color.WHITE, "x1")
+	draw_circle_outline(Vector2(X_INPUT_2, Y_X2), NODE_RADIUS, Color.WHITE, "x2")
+	draw_circle_outline(Vector2(X_ACT_2, Y_X1), NODE_RADIUS, Color.WHITE, "a1")
+	draw_circle_outline(Vector2(X_ACT_2, Y_X2), NODE_RADIUS, Color.WHITE, "a2")
+	draw_circle_outline(Vector2(X_OUTPUT, Y_X1), NODE_RADIUS, Color.WHITE, "P1")
+	draw_circle_outline(Vector2(X_OUTPUT, Y_X2), NODE_RADIUS, Color.WHITE, "P2")
+	# 上部線
+	draw_line(Vector2(X_INPUT-NODE_RADIUS+5, Y_LINE), Vector2(X_ACT-5, Y_LINE), Color.BLACK)
+	draw_line(Vector2(X_ACT+5, Y_LINE), Vector2(X_INPUT_2-5, Y_LINE), Color.BLACK)
+	draw_line(Vector2(X_INPUT_2+5, Y_LINE), Vector2(X_ACT_2-5, Y_LINE), Color.BLACK)
+	draw_line(Vector2(X_ACT_2+5, Y_LINE), Vector2(X_OUTPUT+NODE_RADIUS-5, Y_LINE), Color.BLACK)
 	#
+	initialized = true

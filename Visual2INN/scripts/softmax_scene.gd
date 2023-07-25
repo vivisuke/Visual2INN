@@ -110,7 +110,7 @@ func _ready():
 	softmax = Softmax.new(2)
 	vec_inp.resize(N_MINBATCH_DATA)
 	vec_inp_tv.resize(N_MINBATCH_DATA)
-	$GraphRect.maxv = 3.0
+	$GraphRect.maxv = 2.0
 	init_inp()
 	update_view()
 	pass # Replace with function body.
