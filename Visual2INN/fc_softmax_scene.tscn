@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh3d51ux6waa1"]
+
+[ext_resource type="Script" path="res://scripts/fc_softmax_scene.gd" id="1_1nll4"]
+[ext_resource type="Script" path="res://scripts/TitleBar.gd" id="2_d4py2"]
+[ext_resource type="Texture2D" uid="uid://bukgrrvcqvv37" path="res://images/leftward_black.png" id="3_n24ur"]
+[ext_resource type="Texture2D" uid="uid://b5bjn1p1s6rml" path="res://images/leftward_gray.png" id="4_oie4m"]
+
+[node name="FCSoftmaxScene" type="Node2D"]
+script = ExtResource("1_1nll4")
+
+[node name="BG" type="ColorRect" parent="."]
+offset_top = -1.0
+offset_right = 500.0
+offset_bottom = 899.0
+color = Color(0.941176, 0.941176, 0.941176, 1)
+
+[node name="TitleBar" type="ColorRect" parent="."]
+offset_right = 500.0
+offset_bottom = 48.0
+script = ExtResource("2_d4py2")
+
+[node name="BackButton" type="TextureButton" parent="TitleBar"]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+texture_normal = ExtResource("3_n24ur")
+texture_pressed = ExtResource("4_oie4m")
+
+[node name="TitleLabel" type="Label" parent="TitleBar"]
+layout_mode = 0
+offset_left = 5.0
+offset_right = 495.0
+offset_bottom = 48.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "FC+Softmax"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
