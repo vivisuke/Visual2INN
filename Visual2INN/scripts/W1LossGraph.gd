@@ -12,6 +12,9 @@ func _process(delta):
 func _draw():
 	var loss0 = vec_loss.min()
 	var loss9 = vec_loss.max()
+	var points : PackedVector2Array
 	for x in range(vec_loss.size()):
-		draw_circle(Vector2(x, 100 - (vec_loss[x] - loss0)*10000), 1.0, Color.BLUE)
+		#draw_circle(Vector2(x, 100 - (vec_loss[x] - loss0)*10000), 1.0, Color.BLUE)
+		points.push_back(Vector2(x, 100 - (vec_loss[x] - loss0)*10000))
+	draw_polyline(points, Color.BLUE, 1.0)
 	pass
