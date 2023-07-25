@@ -85,20 +85,23 @@ var ALPHA = 0.1				# 学習率
 var norm = 0.1				# 重み初期化時標準偏差
 var neuron
 var grad
+var vec_loss = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$LearnRate.text = "%.3f" % ALPHA
 	neuron = Neuron.new(2, AF_SIGMOID, norm)
 	vec_weight_init = neuron.vec_weight.duplicate()
 	print(neuron.vec_weight)
 	update_view()
-	$LearnRate.text = "%.3f" % ALPHA
+	draw_loss_w1_graph()
 func update_view():
 	$ItrLabel.text = "Iteration: %d" % n_iteration
 	$WeightLabel.text = "[b, w1, w2] = [%.3f, %.3f, %.3f]" % neuron.vec_weight
 	$GraphRect.vv_weight = [neuron.vec_weight]
 	$GraphRect.queue_redraw()
 	forward_and_backward()
+	draw_loss_w1_graph()
 	pass # Replace with function body.
 func teacher_value(inp:Array):
 	if ope == OP_AND: return 1.0 if inp[0] != 0 && inp[1] != 0.0 else 0.0		# AND
@@ -112,6 +115,31 @@ func teacher_value_ex(inp:Array):
 	if actv_func != AF_SIGMOID && t == 0.0: t = -1.0
 	#if !false_0 && t == 0.0: t = -1.0
 	return t
+func draw_loss_w1_graph():
+	vec_loss = []
+	var w1 = neuron.vec_weight[1]
+	neuron.vec_weight[1] -= 0.5
+	for k in range(100):
+		neuron.vec_weight[1] += 0.01
+		var sumLoss = 0.0
+		var n_data = 0		# ミニバッチデータ数カウンタ
+		for i in range(boolean_pos.size()):
+			n_data += 1
+			var t = teacher_value_ex(boolean_pos[i])	# 教師値
+			var inp = boolean_pos[i] if false_0 else boolean_pos_tanh[i]
+			neuron.forward(inp)
+			var y = neuron.y
+			if actv_func == AF_RELU:
+				y = 1.0 if y > 0.0 else -1.0
+			var d = y - t
+			sumLoss += d * d / 2.0
+		var loss = sumLoss / n_data
+		print("w1, loss = %.3f, %.3f" % [neuron.vec_weight[1], loss])
+		vec_loss.push_back(loss)
+	neuron.vec_weight[1] = w1
+	$W1LossGraph.vec_loss = vec_loss
+	$W1LossGraph.queue_redraw()
+	
 func forward_and_backward():
 	grad = [0.0, 0.0, 0.0]
 	var sumLoss = 0.0
@@ -141,6 +169,7 @@ func do_train():
 	for i in range(neuron.vec_weight.size()):
 		neuron.vec_weight[i] -= grad[i] * ALPHA
 	update_view()
+	#draw_loss_w1_graph()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://78xiyojci0p3"]
+[gd_scene load_steps=13 format=3 uid="uid://78xiyojci0p3"]
 
 [ext_resource type="Script" path="res://scripts/single_neuron_scene.gd" id="1_8hjy8"]
 [ext_resource type="Texture2D" uid="uid://bukgrrvcqvv37" path="res://images/leftward_black.png" id="1_csbep"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bdweaw2al2omp" path="res://images/refresh_gray.png" id="8_i3nup"]
 [ext_resource type="Texture2D" uid="uid://c0jn1uo51xqp7" path="res://images/first_page_black.png" id="8_s1b3i"]
 [ext_resource type="Texture2D" uid="uid://dypwiooquumj1" path="res://images/first_page_gray.png" id="9_2itvw"]
+[ext_resource type="Script" path="res://scripts/W1LossGraph.gd" id="12_g0ntp"]
 
 [node name="SingleNeuronScene" type="Node2D"]
 script = ExtResource("1_8hjy8")
@@ -229,12 +230,33 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Train"
 horizontal_alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 20.0
-offset_top = 700.0
-offset_right = 120.0
-offset_bottom = 800.0
-color = Color(0.501961, 0.501961, 0.501961, 1)
+[node name="W1LossGraph" type="ColorRect" parent="."]
+offset_left = 40.0
+offset_top = 690.0
+offset_right = 140.0
+offset_bottom = 790.0
+color = Color(0.878431, 0.878431, 0.878431, 1)
+script = ExtResource("12_g0ntp")
+
+[node name="LossLabel" type="Label" parent="W1LossGraph"]
+layout_mode = 0
+offset_left = -24.0
+offset_top = 100.0
+offset_right = 76.0
+offset_bottom = 130.0
+rotation = -1.5708
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Loss"
+horizontal_alignment = 1
+
+[node name="WeightLabel" type="Label" parent="W1LossGraph"]
+layout_mode = 0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "weight1"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="TitleBar/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="item_selected" from="OpeButton" to="." method="_on_ope_button_item_selected"]
